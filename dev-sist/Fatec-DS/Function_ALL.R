@@ -283,5 +283,5 @@ download_despesas <- function(anos_f, lista_municipios_f) {
 
 #________________________________  Executa as funções ##_____________________________________________________
 
-configs2()       # executa função configurações 
+configs()       # executa função configurações 
 load_packages() # executa função carregar pacotes
