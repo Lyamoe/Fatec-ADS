@@ -1,4 +1,24 @@
+## R Specific Files to Ignore
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+## Flutter Specific Folders to Ignore
+**/.dart_tool
+**/.idea
+**/android
+**/assets
+**/build
+**/ios
+**/linux
+**/macos
+**/test
+**/web
+**/windows
+
+## Flutter Specific Files to Ignore
+*.iml
+.metadata
+analysis_options.yaml
+pubspec.lock
