@@ -1,3 +1,4 @@
+.prettierrc
 ## R Specific Files to Ignore
 .Rproj.user
 .Rhistory

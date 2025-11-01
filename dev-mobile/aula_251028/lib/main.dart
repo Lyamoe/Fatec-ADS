@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'tela_dados.dart';
 
 void main() {
   runApp(const MyApp());

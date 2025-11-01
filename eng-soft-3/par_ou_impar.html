@@ -1,0 +1,35 @@
+<script>
+// <!-- ? TODO FALSY É PAR E TODO TRUEY É IMPAR
+
+	// <!-- * ESCOLHA BOT
+	let escolhaBot = Math.round(Math.random() * 10);
+	if (!escolhaBot) {
+		escolhaBot = 1;
+	}
+
+	// <!-- * ESCOLHA PLAYER
+    // <!-- ? Player decide se ele é par ou impar
+	let playerEhPar;
+
+	do {
+		playerEhPar = parseInt(prompt("Escolha 0 para par ou 1 para impar"));
+	} while (playerEhPar > 1 || playerEhPar < 0);
+
+	playerEhPar = playerEhPar == 0;
+
+    // <!-- ? Player decide o número que ele joga
+	let escolhaPlayer;
+	do {
+		escolhaPlayer = parseInt(prompt("Escolha um número de 0 a 10"));
+	} while (escolhaPlayer > 10 || escolhaPlayer < 0);
+
+	// <!-- * Resultado
+	let resultado = escolhaBot + escolhaPlayer;
+	let parOuImpar = resultado % 2 == 0 ? true : false;
+
+    // <!-- ? Exibe os dados da rodada
+	console.log(`Bot escolheu: ${escolhaBot}`);
+	console.log(`Você escolheu: ${escolhaPlayer}`);
+	parOuImpar ? console.log("Vitória do par!") : console.log("Vitória do impar!");
+	parOuImpar == playerEhPar ? console.log("Você venceu!") : console.log("Você perdeu!")
+</script>
