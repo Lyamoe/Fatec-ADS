@@ -1,0 +1,15 @@
+<script>
+    window.alert("Vamos ordenar os numeros");
+
+    var num = []
+    num[0] = parseInt(prompt("Insira o primeiro numero"));
+    num[1] = parseInt(prompt("Insira o segundo numero"));
+    num[2] = parseInt(prompt("Insira o terceiro numero"));
+
+    function sortfunction(a, b){
+        return (a - b);
+    }
+    num.sort(sortfunction);
+
+    document.write("Os numeros, em ordem crescente: " + num[0] + ", " + num[1] + " e " + num[2]);
+</script>

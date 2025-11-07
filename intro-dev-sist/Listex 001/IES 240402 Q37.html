@@ -1,0 +1,25 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos transformar um numero decimal em binário");
+
+    var num = prompt("Insira o número");
+    var bin = [];
+    var dig = -1
+    document.write(num + " em binário é ");
+
+    while (num >= 1){
+        dig++
+        if (num % 2 == 1){
+            bin[dig] = 1;
+            num = num / 2 - 0.5;
+        }else{
+            bin[dig] = 0;
+            num = num / 2;
+        }
+    }
+
+    while (dig >= 0) {
+        document.write(bin[dig]) 
+        dig--
+    }
+</script>

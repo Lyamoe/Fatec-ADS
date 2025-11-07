@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos descobrir se o número é primo");
+
+    var num = prompt("Insira o número");
+    var mult = 2;
+    var primo = 0
+
+    for (var mult = 2; mult < num; mult++){
+        if (num % mult == 0){
+            document.write("Não é primo pois é divisível por " + mult + "</br>");
+            primo++
+        }
+    }
+
+    if (primo == 0){
+        document.write(num + " é primo");
+    }
+</script>

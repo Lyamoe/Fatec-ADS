@@ -1,0 +1,16 @@
+<script>
+    var ordem = prompt("crescente (c) ou decrescente (d)");
+    var ns = [];
+    
+    for (var repeat = 1; repeat <= 10; repeat++){
+        var numero = parseInt(prompt("Insira o proximo numero"));
+        ns[repeat-1] = numero;
+    }
+
+    if (ordem == "c"){
+        document.write(ns.sort((a, b) => a - b));
+    }else{
+        document.write(ns.sort((a, b) => b - a));
+    }
+    
+</script>

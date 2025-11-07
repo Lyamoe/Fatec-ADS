@@ -1,0 +1,65 @@
+<script>
+    var meio = prompt("Qual o tamanho do meio do losango")
+    
+    function los(topo) {
+
+        var ponta = 1
+        var repeat = 1
+        var repete = topo
+        var espaco = 1
+        var contagem = 0
+
+        while(ponta <= topo-2){
+            while(repete >= espaco){
+                document.write("..")
+                repete = repete - 2
+            }
+
+            contagem = contagem + 2
+            repete = topo-contagem
+
+            while(repeat <= ponta){
+                document.write("*")
+                repeat++
+            }
+            document.write("<br>")
+            repeat = 1
+            ponta = ponta + 2
+        }
+
+        ponta = topo
+
+        while(ponta >= 1){
+            while(repeat <= espaco){
+                document.write("..")
+                repeat++
+            }
+
+            espaco++
+            repeat = 1
+
+            while(repeat <= ponta){
+                document.write("*")
+                repeat++
+            }
+
+            ponta = ponta -2
+            document.write("<br>")
+            repeat = 1
+        }
+
+        espaco--
+
+        if (topo % 2 == 0) {
+            while(repeat <= espaco){
+                document.write("..");
+                repeat++;
+            }
+            document.write(".* <br>");
+        }else{
+            document.write("<br>");
+        }
+    }
+
+    los(meio);
+</script>

@@ -1,0 +1,36 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos calcular a média exponencial");
+
+    var total = parseInt(prompt("Insira o numero de valores:"));
+    var tempo = parseInt(prompt("Quantos valores serão analisados por vez?"));
+    var valor = [];
+
+    // receber os valores
+    for (var repeat = 0; repeat < total; repeat++) {
+        var num = parseInt(prompt("Insira o próximo valor"));
+        valor[repeat] = num
+    }
+
+    repeat = 0
+    
+    while (valor[repeat+3] != null) {
+        var soma = 0
+        var count = repeat
+
+        if (valor[repeat+3] <= tempo) {
+            repeat++
+        }else{
+            for (let items = 0; items < tempo; items++){
+                soma = soma + valor[count]
+                count++
+            }
+            var medsim = soma / tempo
+            
+            var medex = (valor[repeat+3] - medsim) * (2/(1+tempo)) + medsim
+            document.write(medex + " é a "+ parseInt(repeat+1) + "° média exponencial <br>")
+            
+            repeat++
+        }
+    }
+</script>

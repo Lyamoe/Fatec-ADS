@@ -1,0 +1,28 @@
+<script>
+   const goal = Math.floor(Math.random()*100001);
+
+   for (var chances = 20; chances > 0;chances--){
+      var guess = parseInt(prompt("Digite um número ("+chances + " chances restantes)"));
+
+      if (guess > goal){
+         window.alert("Tente um número menor!");
+      }else{
+         if (guess < goal){
+            window.alert("Tente um número maior!");
+         }else{
+            if(guess == goal){
+               document.write("=========================================== <br>");
+               document.write("Parabéns, você acertou! O número era " + goal + "<br>");
+               document.write("=========================================== <br>");
+               break;
+            }
+         }
+      }
+   }
+
+   if (chances == 0){
+      document.write("=========================================== <br>");
+      document.write("Acabaram as chances! O número era " + goal + "<br>");
+      document.write("=========================================== <br>");
+   }
+</script>
