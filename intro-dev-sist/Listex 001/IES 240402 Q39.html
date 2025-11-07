@@ -1,0 +1,23 @@
+<script>
+    window.alert("Vamos encontrar um valor na sequencia de fibonacci");
+
+    var num = prompt("Qual a posicao desse valor?");
+    var ant1 = 0;
+    var ant2 = 1;
+    var soma = 0;
+    var repeat = 2
+
+    if (num == 1){
+        document.write("0 e o numero na " + num + " posicao.");
+    }else{
+        while(repeat <= num){
+            soma = ant1 + ant2;
+            ant1 = ant2;
+            ant2 = soma;
+            repeat++
+        }
+    }
+    
+
+    document.write(soma + " e o numero na " + num + " posicao na sequencia de fibonacci.");
+</script>

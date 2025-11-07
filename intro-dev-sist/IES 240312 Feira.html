@@ -1,0 +1,31 @@
+<script>
+// Karine Santos Peres
+// 12/03/2024
+
+var pao = 1;
+var unidPao = prompt("Quantos pães você comprou?")
+var leite = 5;
+var unidLeite = prompt("Quantos leites você comprou?")
+var cafe = 17;
+var unidCafe = prompt("Quantos cafés em pó você comprou?")
+var total = pao * unidPao + leite * unidLeite + cafe * unidCafe;
+var dinheiro = prompt("Você tem quantos reais?")
+var troco = dinheiro - total;
+var falta = total - dinheiro;
+
+document.write("<br> Pão francês: R$" + pao + ",00/unid. N° de unidades: " + unidPao)
+document.write("<br> Leite 1L: R$" + leite + ",00/unid. N° de unidades: " + unidLeite)
+document.write("<br> Café em pó: R$" + cafe + ",00/unid. N° de unidades: " + unidCafe)
+document.write("<br> <br> Valor total: R$" + total + ",00. <br> Quantia paga: R$" + dinheiro + ",00.");
+
+if (dinheiro > total){
+    document.write("<br> <br> Seu troco é de " + troco + " reais. Tenha um bom dia!")
+}else{
+    if (dinheiro == total) {
+        document.write("<br> <br> Compra finalizada. Tenha um bom dia!")
+    }else{
+        document.write("<br> <br> Você precisa de mais " + falta + " reais para pagar.");
+    }
+}
+
+</script>

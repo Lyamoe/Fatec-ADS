@@ -1,0 +1,16 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos descobrir se o número e perfeito");
+
+    var num = prompt("Insira o número");
+    var soma = 0;
+
+    for (var mult = 1; mult < num; mult++){
+        if (num % mult == 0){
+            document.write(mult + " + ");
+            soma = soma + mult;
+        }
+    }
+    document.write(0 + " = " + soma + "<br>" + num);
+    document.write(soma == num ? " é um numero perfeito" : " não é um numero perfeito")
+</script>

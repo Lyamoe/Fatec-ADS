@@ -1,0 +1,14 @@
+<script>
+    window.alert("Vamos converter temperaturas");
+
+    var escolha = prompt("A temperatura atual esta em: C ou F");
+    var temp = parseInt(prompt("Insira a temperatura atual"));
+
+    if (escolha == "c"){
+        var conv = (temp*1.8)+32;
+        document.write("A temperatura em fahrenheit e de " + conv);
+    }else{
+        var conv = (temp-32)/1.8;
+        document.write("A temperatura em celsius e de " + conv);
+    }
+</script>

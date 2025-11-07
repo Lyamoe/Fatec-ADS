@@ -1,0 +1,11 @@
+<script>
+    window.alert("Vamos calcular os juros");
+
+    var valor = parseInt(prompt("Insira o valor"));
+    var juros = parseInt(prompt("Insira a taxa de juros (sem o simbolo de porcentagem)"));
+    var parc = parseInt(prompt("Insira o numero de parcelas"));
+    var result = valor * (juros/100) * parc;
+    var final = valor * parc + result;
+
+    document.write("O valor dos juros e de R$" + result + ", totalizando R$" + final);
+</script>

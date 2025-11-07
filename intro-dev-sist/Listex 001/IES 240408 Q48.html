@@ -1,0 +1,18 @@
+<script>
+    window.alert("Vamos descobrir a media geometrica");
+
+    const n = parseInt(prompt("Quantos numeros sao?"));
+    var mult =  1
+
+    document.write("A media geometrica dos numeros </br>")
+
+    for (var repeat = 1; repeat <= n; repeat++){
+        var num = parseInt(prompt("Insira o proximo numero?"));
+        document.write(num + "</br>")
+        mult = mult * num
+    }
+
+    var conta = Math.pow(mult, 1/n)
+    document.write("e de " + conta)
+
+</script>

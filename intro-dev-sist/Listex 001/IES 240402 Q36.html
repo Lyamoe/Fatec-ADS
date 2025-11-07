@@ -1,0 +1,17 @@
+<script>
+    window.alert("Vamos calcular seu imc");
+
+    var peso = prompt("Insira o seu peso em kg")
+    var altura = prompt("Insira a sua altura em cm")
+    var imc = peso/((altura/100)*(altura/100))
+
+    if (imc < 18.5){
+        document.write("Seu IMC e " + imc +". Voce esta abaixo do peso ideal")
+    }else{
+        if (imc < 25){
+            document.write("Seu IMC e " + imc +". Voce esta no peso ideal")
+        }else{
+            document.write("Seu IMC e " + imc +". Voce esta acima do peso")
+        }
+    }
+</script>

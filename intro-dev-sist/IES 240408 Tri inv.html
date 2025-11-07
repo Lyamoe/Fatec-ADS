@@ -1,0 +1,44 @@
+<script>
+    // Crie um algoritmo, utilizando funções, que crie um triângulo equilátero invertido:
+
+    var base = prompt("Qual o tamanho do topo do triangulo");
+    
+    function tri (topo){
+        var ponta = topo;
+        var repeat = 1;
+        var espaco = 0;
+
+        while(ponta >= 1){
+            while(repeat <= espaco){
+                document.write("..");
+                repeat++;
+            }
+
+            espaco++;
+            repeat = 1;
+
+            while(repeat <= ponta){
+                document.write("*");
+                repeat++;
+            }
+
+            ponta = ponta - 2;
+            repeat = 1;
+            document.write("<br>");
+        }
+
+        espaco--;
+
+        if (topo % 2 == 0) {
+            while(repeat <= espaco){
+                document.write("..");
+                repeat++;
+            }
+            document.write(".* <br>");
+        }else{
+            document.write("<br>");
+        }
+    }
+    
+    tri(base);
+</script>
