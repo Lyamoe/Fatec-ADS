@@ -1,0 +1,13 @@
+<script>
+    window.alert("Vamos descobrir se e numero de Armstrong");
+
+    var num = prompt("Digite um numero:");
+    var soma = 0;
+    var inteiro = num.length;
+
+    for (let dig = 0; dig < num.length; dig++){
+        soma = soma + parseInt(num.charAt(dig));
+    }
+    
+    document.write(soma == parseInt(num) ? num + " = " + soma + ", logo, é um número de Armstrong" : num + " ≠ " + soma + ", logo, nao é um número de Armstrong");
+</script>

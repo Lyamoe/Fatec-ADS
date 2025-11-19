@@ -1,0 +1,12 @@
+<script>
+    window.alert("Vamos calcular a area de um triangulo");
+
+    const a = parseInt(prompt("Insira o tamanho do primeiro lado"));
+    const b = parseInt(prompt("Insira o tamanho do segundo lado"));
+    const c = parseInt(prompt("Insira o tamanho do terceiro lado"));
+    var p = (a + b + c)/2
+    var conta = Math.sqrt(p*(p-a)*(p-b)*(p-c))
+
+    document.write("A area deste triangulo e de " + conta)
+
+</script>

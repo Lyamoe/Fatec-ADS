@@ -1,0 +1,25 @@
+<script>
+//Crie uma aplicação de usuário e senha que utilize Do While (use outros recurtsos que achar necessários)
+// Karine, Joana, Caique e Sophia
+
+window.alert("Vamos criar sua conta")
+
+var usuario = prompt("Crie um nome de usuário: ")
+var senha = prompt("Crie uma senha: ")
+var teste = 1
+
+window.alert("Conta criada. Faça login para acessar.")
+
+do{
+    var testeusuario = prompt("Insira seu nome de usuário: ")
+    var testesenha = prompt("Insira sua senha: ")
+    if (usuario != testeusuario || senha != testesenha){
+        window.alert("Houve um erro, tente novamente.")
+    }else{
+        teste = 0
+    }
+}while(teste == 1)
+
+document.write("Você acessou!")
+</script>
+

@@ -1,0 +1,13 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos identificar um palindromo");
+
+    var word = prompt("Escreva uma palavra:");
+    var backward = ""
+
+    for (let wordLength = word.length; wordLength > 0; wordLength--){
+        backward = backward + word.charAt(wordLength-1);
+    }
+
+    document.write(word == backward ? word + " é um palindromo" : word + " não é um palindromo")
+</script>

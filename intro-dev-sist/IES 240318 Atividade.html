@@ -1,0 +1,34 @@
+<script>
+    // Karine Santos Peres
+    // 18/03/2024
+    
+    /*
+    O usuário acessa e o sistema pergunta:
+    A partir de qual número quer contar?
+    Até qual número contará?
+    De quanto em quanto contará?
+    Quer incluir apenas pares ou ímpares (não poder ser ambos).
+   */
+
+   var inicio = parseInt (prompt("Qual o número inicial?"));
+   var fim = parseInt (prompt("Qual o número final?"));
+   var dif = parseInt (prompt("De quanto em quanto você quer que aumente?"));
+   var pOUi = prompt("Par ou impar?");
+
+   document.write("Aqui estão os números " + pOUi + "es de " + inicio + " a " + fim + ", quando somados " + dif + "<br/> <br/>")
+
+   while(inicio <= fim){
+    if(pOUi == "par"){
+       if (inicio % 2 == 0){
+            document.write(inicio + ", ")
+        }
+    }else{
+        if(inicio % 2 == 1){
+            document.write(inicio + ", ")
+        }
+    }
+    var inicio = inicio + dif
+    }
+
+    document.write(" fim da lista!")
+</script>

@@ -1,0 +1,14 @@
+<script>
+    window.alert("Vamos calcular o fatorial de um numero");
+
+    var v1 = parseInt(prompt("Insira o numero"));
+    var inicial = v1;
+    var result = v1;
+
+    do{
+        v1--;
+        result = result * v1;
+    }while(v1 != 1);
+
+    document.write("O fatorial de " + inicial + " e " + result);
+</script>

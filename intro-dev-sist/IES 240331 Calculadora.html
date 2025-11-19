@@ -1,0 +1,96 @@
+<script>
+    //Crie uma calculadora. Deve executar: Bhaskara, Pitágoras, IMC, Média, Mediana, Moda
+    // Karine, Joana, Caique e Sophia
+
+    var escolha = prompt("Qual conta sera realizada? Escolha uma das opcoes: Bhaskara, Pitagoras, IMC, media, mediana ou moda")
+
+    //Fórmula de Bhaskara
+    if (escolha == "bhaskara"){
+        var a = prompt("Insira o valor de a")
+        var b = prompt("Insira o valor de b")
+        var c = prompt("Insira o valor de c")
+
+        var delta = (b*b)-(4*a*c)
+        var bha1 = ((-b) + Math.sqrt(delta))/(2*a)
+        var bha2 = ((-b) - Math.sqrt(delta))/(2*a)
+
+        document.write("Os valores de Bhaskara sao: " + bha1 + " e " + bha2 + ".")
+    }
+
+    //Fórmula do IMC
+    if (escolha == "imc"){
+        var peso = prompt("Insira o seu peso em kg")
+        var altura = prompt("Insira a sua altura em cm")
+        var imc = peso/((altura/100)*(altura/100))
+
+        if (imc < 18.5){
+            document.write("Seu IMC e " + imc +". Voce esta abaixo do peso ideal")
+        }else{
+            if (imc < 25){
+                document.write("Seu IMC e " + imc +". Voce esta no peso ideal")
+            }else{
+                document.write("Seu IMC e " + imc +". Voce esta acima do peso")
+            }
+        }
+    }
+
+    //Fórmula de Pitágoras
+    if (escolha == "pitagoras"){
+        var catetoa = prompt("Insira o valor do cateto oposto")
+        var catetob = prompt("Insira o valor do cateto adjascente")
+        var hipo = Math.sqrt((catetoa*catetoa)+(catetob*catetob))
+
+            document.write("A hipotenusa mede " + hipo)
+    }
+
+    //Fórmula da média
+    if (escolha == "media"){
+        var quant = prompt("Quantos valores são? (2 a 5)")
+
+        if (quant == 5){
+            var v1 = parseInt(prompt("Valor 1: "))
+            var v2 = parseInt(prompt("Valor 2: "))
+            var v3 = parseInt(prompt("Valor 3: "))
+            var v4 = parseInt(prompt("Valor 4: "))
+            var v5 = parseInt(prompt("Valor 5: "))
+            var med = (v1+v2+v3+v4+v5)/5
+
+            document.write("A media e " + med)
+        }else{
+            if (quant == 4){
+                var v1 = parseInt(prompt("Valor 1: "))
+                var v2 = parseInt(prompt("Valor 2: "))
+                var v3 = parseInt(prompt("Valor 3: "))
+                var v4 = parseInt(prompt("Valor 4: "))
+                var med = (v1+v2+v3+v4)/4
+
+                document.write("A media e " + med)
+            }else{
+                if (quant == 3) {
+                    var v1 = parseInt(prompt("Valor 1: "))
+                    var v2 = parseInt(prompt("Valor 2: "))
+                    var v3 = parseInt(prompt("Valor 3: "))
+                    var med = (v1+v2+v3)/3
+
+                    document.write("A media e " + med)
+                }else{
+                    var v1 = parseInt(prompt("Valor 1: "))
+                    var v2 = parseInt(prompt("Valor 2: "))
+                    var med = (v1+v2)/2
+
+                    document.write("A media e " + med)
+                }
+            }
+        }
+    }
+
+    //Fórmula da mediana
+    if (escolha == "mediana"){
+        
+    }
+
+    //Fórmula da moda
+    if (escolha == "moda"){
+        
+    }
+</script>

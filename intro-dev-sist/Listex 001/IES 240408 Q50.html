@@ -1,0 +1,21 @@
+<script>
+    window.alert("Vamos descobrir se e um triangulo retangulo");
+
+    const l1 = parseInt(prompt("Insira o valor do lado 1?"));
+    const l2 = parseInt(prompt("Insira o valor do lado 2?"));
+    const l3 = parseInt(prompt("Insira o valor do lado 3?"));
+
+    if (l1 >= l2 && l1 >= l3) {
+        var maior = l1;
+    }else{
+        if (l2 >= l1 && l2 >= l3){
+            var maior = l2;
+        }else{
+            var maior = l3;
+        }
+    }
+    
+    var catetos = (l1**2) + (l2**2) + (l3**2) - (maior**2);
+    document.write(maior + " é o maior valor. O valor da hipotenusa deve ser " + Math.sqrt(catetos) + "</br>")
+    document.write(maior**2 == catetos ? "E um triangulo retangulo" : "Nao e um triangulo retangulo")
+</script>

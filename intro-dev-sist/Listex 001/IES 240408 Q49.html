@@ -1,0 +1,11 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script>
+    window.alert("Vamos transformar letras em números");
+
+    const texto = prompt("Insira uma frase:");
+    document.write(texto + "<br>");
+    for (let repeat = 0; repeat < texto.length; repeat++) {
+        const letra = texto.codePointAt(repeat);
+        document.writeln(letra);
+    }
+</script>
