@@ -7,9 +7,7 @@ import * as Device from "expo-device";
 import { Image, Platform, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-function getDevMenuHint() {
-		return <ThemedText type="code">Professor me obrigou</ThemedText>;
-}
+// Tinha uma função aqui mas eu removi
 
 export default function HomeScreen() {
 	return (
@@ -34,7 +32,7 @@ export default function HomeScreen() {
 						title="Pq ele é legal?"
 						hint={<ThemedText type="code">feito por Lyam</ThemedText>}
 					/>
-					<HintRow title="Pq vc fez ele?" hint={getDevMenuHint()} />
+					<HintRow title="Pq vc fez ele?" hint={<ThemedText type="code">Professor me obrigou</ThemedText>} />
 					<HintRow
 						title="E por que devo usá-lo?"
 						hint={
@@ -48,6 +46,8 @@ export default function HomeScreen() {
 		</ThemedView>
 	);
 }
+
+// Não mexi no css
 
 const styles = StyleSheet.create({
 	container: {
