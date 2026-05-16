@@ -1,17 +1,17 @@
 import {
-  Montserrat_400Regular,
-  Montserrat_700Bold,
-  useFonts,
+	Montserrat_400Regular,
+	Montserrat_700Bold,
+	useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+	Image,
+	ScrollView,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
