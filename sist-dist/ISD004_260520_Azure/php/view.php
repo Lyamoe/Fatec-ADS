@@ -33,26 +33,24 @@
                     $is_concluida = isset($item['concluida']) && $item['concluida'] === true;
                     ?>
                     <li class="<?php echo $is_concluida ? 'tarefa-concluida' : ''; ?>">
-                        <div class="tarefa-texto">
-                            <strong><?php echo $item['descricao']; ?></strong>
-                            <small>Enviado em: <?php echo $item['data']; ?></small>
-                        </div>
-
-                        <div class="acoes">
+                        <div class="tarefa-ativa">
                             <?php if (!$is_concluida): ?>
                                 <form method="POST" style="margin: 0;">
                                     <input type="hidden" name="concluir_index" value="<?php echo $index; ?>">
-                                    <button type="submit" class="btn-action btn-concluir"
-                                        title="Marcar como concluída">Concluir</button>
+                                    <button type="submit" class="btn-action btn-concluir" title="Marcar como concluída">✅</button>
                                 </form>
                             <?php endif; ?>
-
-                            <form method="POST" style="margin: 0;"
-                                onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
-                                <input type="hidden" name="excluir_index" value="<?php echo $index; ?>">
-                                <button type="submit" class="btn-action btn-excluir" title="Excluir tarefa">Excluir</button>
-                            </form>
+                            <div class="tarefa-texto">
+                                <strong><?php echo $item['descricao']; ?></strong>
+                                <small>Enviado em: <?php echo $item['data']; ?></small>
+                            </div>
                         </div>
+
+                        <form method="POST" style="margin: 0;"
+                            onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                            <input type="hidden" name="excluir_index" value="<?php echo $index; ?>">
+                            <button type="submit" class="btn-action btn-excluir" title="Excluir tarefa">🗑</button>
+                        </form>
                     </li>
                 <?php endforeach; ?>
             </ul>
