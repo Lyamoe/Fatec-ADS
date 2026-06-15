@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import { mockSubjects, mockTypes } from "../constants/mockData";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
+import { useState } from "react";
 import {
+	Alert,
+	Modal,
+	Platform,
+	ScrollView,
 	StyleSheet,
 	Text,
-	View,
-	TouchableOpacity,
-	Modal,
 	TextInput,
-	ScrollView,
-	Platform,
-	Alert,
+	TouchableOpacity,
+	View,
 } from "react-native";
-import Slider from "@react-native-community/slider";
-import { Picker } from "@react-native-picker/picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { mockSubjects, mockTypes } from "@/constants/mockData";
+import { sendDelayedTestingNotification } from "../utils/notifications";
 
 interface AddTaskModalProps {
 	visible: boolean;
@@ -21,11 +21,7 @@ interface AddTaskModalProps {
 	onSave: (newTask: any) => void;
 }
 
-export default function AddTaskModal({
-	visible,
-	onClose,
-	onSave,
-}: AddTaskModalProps) {
+export function AddTaskModal({ visible, onClose, onSave }: AddTaskModalProps) {
 	// --- FORM STATES ---
 	const [taskName, setTaskName] = useState("");
 	const [selectedSubject, setSelectedSubject] = useState<string>(
@@ -70,7 +66,7 @@ export default function AddTaskModal({
 		setSubtasks([]);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (!taskName.trim()) {
 			Alert.alert("Erro", "Por favor, digite o nome da tarefa.");
 			return;
@@ -91,6 +87,16 @@ export default function AddTaskModal({
 		};
 
 		onSave(newTask);
+
+		try {
+			await sendDelayedTestingNotification(
+				"Nova Tarefa!",
+				`Você criou a tarefa "${newTask.title}"!`,
+			);
+		} catch (error) {
+			console.error("Failed to schedule test notification:", error);
+		}
+
 		resetForm();
 		onClose();
 	};
@@ -178,15 +184,7 @@ export default function AddTaskModal({
 						<Text style={styles.label}>
 							Dificuldade: {Math.round(difficulty)}
 						</Text>
-						<Slider
-							minimumValue={1}
-							maximumValue={5}
-							step={1}
-							value={difficulty}
-							onValueChange={setDifficulty}
-							minimumTrackTintColor="#4dd0e1"
-							maximumTrackTintColor="#ccc"
-						/>
+						<TextInput maxLength={1} keyboardType="numeric" placeholder="Número de 1 a 5"></TextInput>
 
 						{/* Date Assigned */}
 						<Text style={styles.label}>Data de Atribuição</Text>
@@ -319,7 +317,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		fontSize: 16,
 		backgroundColor: "#fafafa",
-		outline: "none",
+		// 🎯 FIXED: Removed invalid style property "outline"
 	},
 	dateButton: {
 		borderWidth: 1,

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Priô Lista de Tarefas Estudantil",
-    "slug": "Priolistatarefas",
+    "name": "ILP112_260615_Notif",
+    "slug": "ILP112_260615_Notif",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "priolistatarefas",
+    "scheme": "ilp112260615notif",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
@@ -17,8 +17,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false,
-      "package": "com.lyamoe.Priolistatarefas"
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
@@ -35,19 +34,11 @@
             "imageWidth": 76
           }
         }
-      ],
-      "expo-sqlite",
-      "@react-native-community/datetimepicker"
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "9484ca1f-07b0-432d-b122-14f77d368a0f"
-      }
     }
   }
 }

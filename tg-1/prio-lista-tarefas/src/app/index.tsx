@@ -7,8 +7,9 @@ import {
 	TouchableOpacity,
 	StatusBar,
 	ScrollView,
+	Alert,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -20,18 +21,28 @@ import {
 	TASKS_STORAGE_KEY,
 } from "@/services/backgroudTasks";
 import { registerForPushNotificationsAsync } from "@/utils/notifications";
-import AddTaskModal from "@/components/addTaskModal";
+import { AddTaskModal } from "@/components/addTaskModal";
 
 export default function App() {
 	const [tasks, setTasks] = useState<any[]>([]);
 	const [modalVisible, setModalVisible] = useState(false);
 
 	useEffect(() => {
-		registerForPushNotificationsAsync();
+		try {
+			registerForPushNotificationsAsync().catch((err) =>
+				console.log("Push notification registration failed:", err),
+			);
+		} catch (e) {
+			console.log("Push notification crashed natively:", e);
+		}
 
-		registerBackgroundFetchAsync().catch((err) =>
-			console.log("Background fetch registration skipped on Web:", err.message),
-		);
+		try {
+			registerBackgroundFetchAsync().catch((err) =>
+				console.log("Background fetch registration skipped:", err.message),
+			);
+		} catch (e) {
+			console.log("Background fetch crashed natively:", e);
+		}
 
 		loadAndInitializeTasks();
 	}, []);
@@ -42,6 +53,13 @@ export default function App() {
 			if (storedData) {
 				setTasks(JSON.parse(storedData));
 			} else {
+				// 🚨 SUSPECT 2: Safety check around priority calculation
+				console.log("Initializing mock tasks...");
+				if (!mockTasks) {
+					console.log("Warning: mockTasks is empty or undefined!");
+					return;
+				}
+
 				const initializedMocks = calculateInitialPriorities([...mockTasks]);
 				await AsyncStorage.setItem(
 					TASKS_STORAGE_KEY,
@@ -50,7 +68,12 @@ export default function App() {
 				setTasks(initializedMocks);
 			}
 		} catch (error) {
-			console.error("Failed to load tasks:", error);
+			// This catches JSON parse errors or AsyncStorage lockdown failures
+			console.error("Failed to load tasks safely:", error);
+			Alert.alert(
+				"Erro de Inicialização",
+				"Não foi possível carregar os dados locais.",
+			);
 		}
 	};
 
@@ -77,128 +100,135 @@ export default function App() {
 			: 0;
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<StatusBar barStyle="dark-content" backgroundColor="#fff" />
+		<SafeAreaProvider>
+			<SafeAreaView style={styles.container}>
+				<StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
-			{/* CABEÇALHO */}
-			<View style={styles.header}>
-				<TouchableOpacity>
-					<Ionicons name="menu" size={40} color="black" />
-				</TouchableOpacity>
-				<Image
-					source={{ uri: "https://i.pravatar.cc/100?img=5" }}
-					style={styles.profilePic}
-				/>{" "}
-				{/* //TODO: add an image I actually like  */}
-			</View>
-
-			<ScrollView
-				contentContainerStyle={styles.scrollContent}
-				showsVerticalScrollIndicator={false}
-			>
-				{/* RESUMO */}
-				<View style={styles.summaryContainer}>
-					<Text style={styles.summaryTitle}>Suas tarefas pendentes</Text>
-					<View style={styles.statsRow}>
-						<View style={styles.statItem}>
-							<Text style={styles.statLabel}>Tarefas</Text>
-							<View style={styles.circle}>
-								<Text style={styles.circleNumber}>{totalTasks}</Text>
-							</View>
-						</View>
-						<View style={styles.statItem}>
-							<Text style={styles.statLabel}>Andamento</Text>
-							<View style={styles.circle}>
-								<Text style={styles.circleNumber}>{averageProgress}%</Text>
-							</View>
-						</View>
-					</View>
+				{/* CABEÇALHO */}
+				<View style={styles.header}>
+					<TouchableOpacity>
+						<Ionicons name="menu" size={40} color="black" />
+					</TouchableOpacity>
+					<Image
+						source={{ uri: "https://i.pravatar.cc/100?img=5" }}
+						style={styles.profilePic}
+					/>
 				</View>
 
-				{/* LISTA */}
-				<View style={styles.listContainer}>
-					<View style={styles.listHeader}>
-						<Text style={styles.listTitle}>Pendências</Text>
-						<View style={styles.titleUnderline} />
+				<ScrollView
+					contentContainerStyle={styles.scrollContent}
+					showsVerticalScrollIndicator={false}
+				>
+					{/* RESUMO */}
+					<View style={styles.summaryContainer}>
+						<Text style={styles.summaryTitle}>Suas tarefas pendentes</Text>
+						<View style={styles.statsRow}>
+							<View style={styles.statItem}>
+								<Text style={styles.statLabel}>Tarefas</Text>
+								<View style={styles.circle}>
+									<Text style={styles.circleNumber}>{totalTasks}</Text>
+								</View>
+							</View>
+							<View style={styles.statItem}>
+								<Text style={styles.statLabel}>Andamento</Text>
+								<View style={styles.circle}>
+									<Text style={styles.circleNumber}>{averageProgress}%</Text>
+								</View>
+							</View>
+						</View>
 					</View>
 
-					<View style={styles.tableHeaders}>
-						<Text style={styles.tableHeaderText}>
-							Índice de{"\n"}prioridade
-						</Text>
-						<Text style={styles.tableHeaderText}>descrição da{"\n"}tarefa</Text>
-						<Text style={[styles.tableHeaderText, { textAlign: "right" }]}>
-							andamento{"\n"}e prazo
-						</Text>
-					</View>
+					{/* LISTA */}
+					<View style={styles.listContainer}>
+						<View style={styles.listHeader}>
+							<Text style={styles.listTitle}>Pendências</Text>
+							<View style={styles.titleUnderline} />
+						</View>
 
-					{tasks.map((task) => (
-						<View
-							key={task.id}
-							style={[
-								styles.taskCard,
-								{ backgroundColor: task.cardBgColor || "#fafafa" },
-							]}
-						>
+						<View style={styles.tableHeaders}>
+							{/* 🎯 FIXED: Strings are kept compact on single lines to prevent space injection */}
+							<Text style={styles.tableHeaderText}>
+								{"Índice de\nprioridade"}
+							</Text>
+							<Text style={styles.tableHeaderText}>
+								{"descrição da\ntarefa"}
+							</Text>
+							<Text style={[styles.tableHeaderText, { textAlign: "right" }]}>
+								{"andamento\ne prazo"}
+							</Text>
+						</View>
+
+						{tasks.map((task) => (
 							<View
+								key={task.id}
 								style={[
-									styles.iconContainer,
-									{ backgroundColor: task.iconBgColor || "#eee" },
+									styles.taskCard,
+									{ backgroundColor: task.cardBgColor || "#fafafa" },
 								]}
 							>
-								<MaterialCommunityIcons
-									name={task.icon || "help-circle"}
-									size={20}
-									color={
-										task.icon === "coffee"
-											? "#5c4033"
-											: task.icon === "alert"
-												? "#ffcc00"
-												: "#ff4d4d"
-									}
-								/>
-							</View>
-
-							<View style={styles.taskInfo}>
-								<Text style={styles.taskTitle}>{task.title}</Text>
-								<Text style={styles.taskDesc}>{task.desc}</Text>
-							</View>
-
-							<View style={styles.taskStatus}>
-								<Text
+								<View
 									style={[
-										styles.progressText,
-										{ color: task.progressColor || "#333" },
+										styles.iconContainer,
+										{ backgroundColor: task.iconBgColor || "#eee" },
 									]}
 								>
-									{task.progressText}
-								</Text>
-								<Text
-									style={[styles.dateText, { color: task.dateColor || "#888" }]}
-								>
-									{task.dateText}
-								</Text>
+									<MaterialCommunityIcons
+										name={task.icon || "help-circle"}
+										size={20}
+										color={
+											task.icon === "coffee"
+												? "#5c4033"
+												: task.icon === "alert"
+													? "#ffcc00"
+													: "#ff4d4d"
+										}
+									/>
+								</View>
+
+								<View style={styles.taskInfo}>
+									<Text style={styles.taskTitle}>{task.title}</Text>
+									<Text style={styles.taskDesc}>{task.desc}</Text>
+								</View>
+
+								<View style={styles.taskStatus}>
+									<Text
+										style={[
+											styles.progressText,
+											{ color: task.progressColor || "#333" },
+										]}
+									>
+										{task.progressText}
+									</Text>
+									<Text
+										style={[
+											styles.dateText,
+											{ color: task.dateColor || "#888" },
+										]}
+									>
+										{task.dateText}
+									</Text>
+								</View>
 							</View>
-						</View>
-					))}
-				</View>
-			</ScrollView>
+						))}
+					</View>
+				</ScrollView>
 
-			{/* FLOATING ACTION BUTTON (FAB) */}
-			<TouchableOpacity
-				style={styles.fab}
-				onPress={() => setModalVisible(true)}
-			>
-				<Ionicons name="add" size={32} color="#8a2be2" />
-			</TouchableOpacity>
+				{/* FLOATING ACTION BUTTON (FAB) */}
+				<TouchableOpacity
+					style={styles.fab}
+					onPress={() => setModalVisible(true)}
+				>
+					<Ionicons name="add" size={32} color="#8a2be2" />
+				</TouchableOpacity>
 
-			{/* REFACTORED MODAL COMPONENT */}
-			<AddTaskModal
-				visible={modalVisible}
-				onClose={() => setModalVisible(false)}
-				onSave={handleSaveNewTask}
-			/>
-		</SafeAreaView>
+				{/* REFACTORED MODAL COMPONENT */}
+				<AddTaskModal
+					visible={modalVisible}
+					onClose={() => setModalVisible(false)}
+					onSave={handleSaveNewTask}
+				/>
+			</SafeAreaView>
+		</SafeAreaProvider>
 	);
 }
 

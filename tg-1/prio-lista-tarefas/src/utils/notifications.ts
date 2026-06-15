@@ -30,6 +30,25 @@ export async function registerForPushNotificationsAsync() {
 	}
 }
 
+// Trigger a local notification after 1 minute (for testing)
+export async function sendDelayedTestingNotification(title: string, body: string) {
+    if (Platform.OS === "web") return;
+
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title,
+            body,
+            sound: true,
+        },
+        trigger: {
+            type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+            seconds: 60, // 1 minute delay
+        },
+    });
+    
+    console.log("Notification scheduled to fire in 60 seconds!");
+}
+
 // Trigger a local notification immediately
 export async function sendLocalNotification(title: string, body: string) {
 	if (Platform.OS === "web") return;
