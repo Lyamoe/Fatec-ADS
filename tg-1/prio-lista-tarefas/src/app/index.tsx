@@ -1,27 +1,30 @@
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import {
+	Alert,
+	Image,
+	ScrollView,
+	StatusBar,
 	StyleSheet,
 	Text,
-	View,
-	Image,
 	TouchableOpacity,
-	StatusBar,
-	ScrollView,
-	Alert,
+	View,
 } from "react-native";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 // --- CUSTOM IMPORTS ---
+import { AddTaskModal } from "@/components/addTaskModal";
 import { mockTasks } from "@/constants/mockData";
-import { calculateInitialPriorities } from "@/utils/priorityEngine";
 import {
 	registerBackgroundFetchAsync,
 	TASKS_STORAGE_KEY,
 } from "@/services/backgroudTasks";
-import { registerForPushNotificationsAsync } from "@/utils/notifications";
-import { AddTaskModal } from "@/components/addTaskModal";
+import {
+	registerForPushNotificationsAsync,
+	updateTaskNotifications,
+} from "@/utils/notifications";
+import { calculatePriorities } from "@/utils/priorityEngine";
 
 export default function App() {
 	const [tasks, setTasks] = useState<any[]>([]);
@@ -51,16 +54,25 @@ export default function App() {
 		try {
 			const storedData = await AsyncStorage.getItem(TASKS_STORAGE_KEY);
 			if (storedData) {
-				setTasks(JSON.parse(storedData));
+				// Recalculate priorities for existing tasks based on the current date
+				const refreshedTasks = calculatePriorities(JSON.parse(storedData));
+
+				// Save the newly calculated priorities back to storage
+				await AsyncStorage.setItem(
+					TASKS_STORAGE_KEY,
+					JSON.stringify(refreshedTasks),
+				);
+
+				// Update the UI
+				setTasks(refreshedTasks);
 			} else {
-				// 🚨 SUSPECT 2: Safety check around priority calculation
 				console.log("Initializing mock tasks...");
 				if (!mockTasks) {
 					console.log("Warning: mockTasks is empty or undefined!");
 					return;
 				}
 
-				const initializedMocks = calculateInitialPriorities([...mockTasks]);
+				const initializedMocks = calculatePriorities([...mockTasks]);
 				await AsyncStorage.setItem(
 					TASKS_STORAGE_KEY,
 					JSON.stringify(initializedMocks),
@@ -68,7 +80,6 @@ export default function App() {
 				setTasks(initializedMocks);
 			}
 		} catch (error) {
-			// This catches JSON parse errors or AsyncStorage lockdown failures
 			console.error("Failed to load tasks safely:", error);
 			Alert.alert(
 				"Erro de Inicialização",
@@ -80,12 +91,16 @@ export default function App() {
 	// Recalculates prioritization indexes immediately after custom tasks get saved
 	const handleSaveNewTask = async (newTask: any) => {
 		try {
-			const updatedList = calculateInitialPriorities([...tasks, newTask]);
+			const updatedList = calculatePriorities([...tasks, newTask]);
 			await AsyncStorage.setItem(
 				TASKS_STORAGE_KEY,
 				JSON.stringify(updatedList),
 			);
 			setTasks(updatedList);
+
+			const notificationIds = await updateTaskNotifications(newTask);
+
+			const finalTask = { ...newTask, notificationIds };
 		} catch (error) {
 			console.error("Error saving task:", error);
 		}
@@ -146,7 +161,6 @@ export default function App() {
 						</View>
 
 						<View style={styles.tableHeaders}>
-							{/* 🎯 FIXED: Strings are kept compact on single lines to prevent space injection */}
 							<Text style={styles.tableHeaderText}>
 								{"Índice de\nprioridade"}
 							</Text>

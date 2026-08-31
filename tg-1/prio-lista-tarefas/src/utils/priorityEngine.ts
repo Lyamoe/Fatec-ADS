@@ -118,7 +118,7 @@ function setPriority(
 	return priority;
 }
 
-export function calculateInitialPriorities(tasks: any[]): any[] {
+export function calculatePriorities(tasks: any[]): any[] {
 	return tasks
 		.map((task) => {
 			const progress = setProgress([...task.subtasks]);
