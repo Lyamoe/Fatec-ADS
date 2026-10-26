@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- //* ==================== OUTROS ==================== -->
-    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/css/index.css" />
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Bagel+Fat+One&family=Delius&display=swap"
         rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="32x32" href="img/siteIcon.png" />
@@ -27,9 +27,9 @@
 
 <body>
     <!-- //* ==================== HEADER ==================== -->
-    <header id="header-container" class="">
-        <p>GeloGest</p>
-        <a href="pages/login.php">Login</a>
+    <header id="header-container" class="header">
+        <p class="header__title">GeloGest</p>
+        <a class="header__link" href="pages/login.php">Login</a>
     </header>
     <!-- //* ==================== MAIN ==================== -->
     <main id="home" class="">

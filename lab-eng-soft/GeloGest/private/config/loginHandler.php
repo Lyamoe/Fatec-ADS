@@ -35,20 +35,20 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
         if ($user === '' || $pass === '') {
             echo "<script>window.alert('Preencha todos os campos!');</script>";
         } else {
-            $stmt = $mysqli->prepare("SELECT * FROM employee_login WHERE admin_name = ?");
+            $stmt = $mysqli->prepare("SELECT * FROM user_login WHERE user_name = ?");
             $stmt->bind_param("s", $user);
             $stmt->execute();
             $getData = $stmt->get_result();
 
             if ($getData && $getData->num_rows === 1) {
                 $mostra = $getData->fetch_object();
-                if (password_verify($pass, $mostra->admin_password)) {
+                if (password_verify($pass, $mostra->user_password)) {
                     $_SESSION['user_id'] = $mostra->id;
-                    $_SESSION['user_name'] = $mostra->admin_name;
+                    $_SESSION['user_name'] = $mostra->user_name;
                     $_SESSION['login_attempts'] = 0;
                     $_SESSION['last_attempt_time'] = 0;
-                    echo "<script>console.log SOCORRO</script>";
-                    header("Location:../public/admin/index.php");
+                    echo "<script>console.log('Login realizado com sucesso!');</script>";
+                    header("Location:../../public/index.php");
                     exit();
                 } else {
                     wrongLogin($current_time);

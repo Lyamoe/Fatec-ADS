@@ -1,8 +1,8 @@
 <?php
 define("HOST", "localhost");
-define("USER", "Lyamoe");
-define("PASSWORD", "sqlMil@ne1213");
-define("DATABASE", "estoque_gelateria");
+define("USER", "root");
+define("PASSWORD", "");
+define("DATABASE", "gelateria_stock");
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
 // Verifica a criação do DATABASE
