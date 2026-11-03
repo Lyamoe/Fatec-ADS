@@ -23,6 +23,11 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -101,31 +106,97 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-body {
+.body {
+  font-family: "IBM Plex Sans Condensed", sans-serif;
   background-color: #ecf0ec;
   color: #333333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header {
-  background-color: #32522b;
-  color: #9dd48f;
+  background-color: #1b3814;
+  color: #c1ebb7;
   display: flex;
   justify-content: space-between;
   height: 50px;
   align-items: center;
 }
 .header__title {
-  font-family: "Bagel Fat One", cursive;
+  font-family: "Lilita One", cursive;
   font-size: 1.5rem;
   margin-left: 1rem;
 }
 .header__link {
-  font-family: "Indie Flower", cursive;
+  font-family: "IBM Plex Sans Condensed", sans-serif;
   font-size: 1.2rem;
   margin-right: 1rem;
   text-decoration: none;
-  color: #9dd48f;
+  color: #c1ebb7;
 }
 .header__link:hover {
   text-decoration: underline;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.footer {
+  background-color: #1b3814;
+  color: #c1ebb7;
+  height: min(5vh, 100px);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-family: "Lilita One", cursive;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero {
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #2a7b9b;
+  background: linear-gradient(90deg, rgb(149, 196, 214) 0%, rgb(150, 228, 182) 50%, rgb(252, 246, 194) 100%);
+}
+
+.options__title {
+  font-family: "Lilita One", cursive;
+  font-size: 1.7rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+.options__buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+.options__button {
+  font-size: 1.2rem;
+  color: #1b3814;
+  background-color: #c1ebb7;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  max-width: 20vw;
+  text-align: center;
+}
+.options__button:hover {
+  background-color: #1b3814;
+  color: #c1ebb7;
+}
+.options__button > span {
+  display: block;
+}
+.options__desc {
+  font-size: 1rem;
+  margin-top: 0.5rem;
 }

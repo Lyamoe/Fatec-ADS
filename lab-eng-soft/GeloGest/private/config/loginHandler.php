@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 require_once 'connect.php';
 
 if (!isset($_SESSION['login_attempts'])) {
@@ -45,6 +46,8 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
                 if (password_verify($pass, $mostra->user_password)) {
                     $_SESSION['user_id'] = $mostra->id;
                     $_SESSION['user_name'] = $mostra->user_name;
+                    $_SESSION['user_type'] = $mostra->user_type;
+                    $_SESSION['company_id'] = $mostra->company_id;
                     $_SESSION['login_attempts'] = 0;
                     $_SESSION['last_attempt_time'] = 0;
                     echo "<script>console.log('Login realizado com sucesso!');</script>";
@@ -63,6 +66,6 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
 function wrongLogin($current_time){
     $_SESSION['login_attempts']++;
     $_SESSION['last_attempt_time'] = $current_time;
-    header('location:../public/admin/login.php?fail=10');
+    header('location:../../public/pages/login.php?fail=1');
     exit();
 }

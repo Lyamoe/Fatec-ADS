@@ -1,20 +1,34 @@
 <?php
-require_once 'connect.php';
-require_once 'sqlFields.php';
+require_once __DIR__ . '/connect.php';
 
-function getDbInfo($fieldIndex, $tableIndex)
-{
-    global $mysqli, $sqlTables, $sqlFields;
-    $table = $sqlTables[$tableIndex];
-    $field = $sqlFields[$fieldIndex];
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-    $sql = "SELECT `$field` FROM $table WHERE id = '1'";
-    $result = mysqli_query($mysqli, $sql);
+/**
+ * Fetches the logged-in user's company name.
+ * 
+ * @return string|null Company name if found, null otherwise.
+ */
+function getCompanyName() {
+    global $mysqli;
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        return $row[$field];
-    } else {
-        return "";
+    // Check if the user is logged in and has a company_id in session
+    if (!isset($_SESSION['company_id'])) {
+        return null;
     }
+
+    $companyId = (int)$_SESSION['company_id'];
+
+    // Prepared statement to safely fetch the company name
+    $stmt = $mysqli->prepare("SELECT company_name FROM companies WHERE id = ?");
+    $stmt->bind_param("i", $companyId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['company_name'];
+    }
+
+    return null;
 }
