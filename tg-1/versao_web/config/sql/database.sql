@@ -43,96 +43,40 @@ CREATE TABLE
     );
 
 -- ==================== CREATE VIEWS ==================== 
-CREATE
-OR REPLACE VIEW v_prioridade_escolar AS
-WITH
-    calculo_base AS (
-        SELECT
-            atv.id,
-            atv.titulo_atividade,
-            atv.data_entrega,
-            atv.nivel_dificuldade,
-            -- 1. CÁLCULO DA IMPORTÂNCIA
-            (
-                (
-                    (6 - mt.indice_afinidade) + atv.nivel_dificuldade + tipo.peso_tipo
-                ) * (
-                    0.5 + (
-                        COALESCE(
-                            (
-                                SELECT
-                                    COUNT(*)
-                                FROM
-                                    subtarefas
-                                WHERE
-                                    atividade_id = atv.id
-                                    AND concluida = 1
-                            ),
-                            0
-                        ) / NULLIF(
-                            (
-                                SELECT
-                                    COUNT(*)
-                                FROM
-                                    subtarefas
-                                WHERE
-                                    atividade_id = atv.id
-                            ),
-                            0
-                        )
-                    )
-                )
-            ) / 22.5 AS importancia,
-            -- 2. CÁLCULO DA URGÊNCIA
-            LEAST (
-                1,
-                (
-                    DATEDIFF (CURRENT_DATE, atv.data_atribuicao) / NULLIF(
-                        DATEDIFF (atv.data_entrega, atv.data_atribuicao),
-                        0
-                    )
-                ) * 1.5
-            ) AS urgencia
-        FROM
-            atividades atv
-            JOIN materias mt ON atv.materia_id = mt.id
-            JOIN tipos_atribuicoes tipo ON atv.tipo_id = tipo.id
-        WHERE
-            atv.concluida = FALSE
-    ),
-    calculo_prioridade AS (
-        SELECT
-            *,
-            ROUND(5 * ((importancia + urgencia) / 2), 1) AS prioridade_preliminar
-        FROM
-            calculo_base
-    )
-SELECT
-    id,
-    titulo_atividade,
-    importancia,
-    urgencia,
-    -- 4. CÁLCULO DA PRIORIDADE FINAL
-    CASE
-    -- Se não há subtarefas pendentes
-        WHEN (
-            SELECT
-                COUNT(*)
-            FROM
-                subtarefas
-            WHERE
-                atividade_id = id
-                AND concluida = 0
-        ) = 0 THEN 0
-        -- Se está atrasado
-        WHEN DATEDIFF (data_entrega, CURRENT_DATE) < 0 THEN 5
-        -- Se é difícil ou está perto do prazo
-        WHEN nivel_dificuldade = 5
-        OR DATEDIFF (data_entrega, CURRENT_DATE) <= 2 THEN LEAST (5, prioridade_preliminar + 1)
-        ELSE prioridade_preliminar
-    END AS prioridade_final
-FROM
-    calculo_prioridade;
+CREATE OR REPLACE VIEW v_prioridade_escolar AS
+WITH progresso_subtarefas AS (
+    SELECT atividade_id, 
+           CAST(SUM(CASE WHEN concluida THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*) AS S
+    FROM subtarefas GROUP BY atividade_id
+),
+metricas_base AS (
+    SELECT 
+        a.id, a.titulo_atividade, a.data_entrega, t.peso_tipo AS P,
+        -- I_I: (6 - A + P + D) * (1 + S * 0.3) / 19.5
+        ((6 - m.indice_afinidade + t.peso_tipo + a.nivel_dificuldade) * 
+         (1 + COALESCE(ps.S, 0) * 0.3)) / 19.5 AS I_I,
+        -- I_U: min(1, (T_dec / T_total) * 1.25)
+        LEAST(1.0, (CAST(DATEDIFF(CURRENT_DATE, a.data_atribuicao) AS FLOAT) / 
+              NULLIF(DATEDIFF(a.data_entrega, a.data_atribuicao), 0)) * 1.25) AS I_U
+    FROM atividades a
+    JOIN materias m ON a.materia_id = m.id
+    JOIN tipos_atribuicoes t ON a.tipo_id = t.id
+    LEFT JOIN progresso_subtarefas ps ON a.id = ps.atividade_id
+    WHERE a.concluida = FALSE
+),
+ipa_base AS (
+    SELECT *, ROUND(((I_I + I_U) / 2.0) * 5.0, 2) AS ipa_bruto
+    FROM metricas_base
+)
+SELECT 
+    id, titulo_atividade, ROUND(I_I, 2) AS I_I, ROUND(I_U, 2) AS I_U,
+    -- IPA Ajustado: min(5.0, IPA + Bonificações)
+    LEAST(5.0, ipa_bruto + 
+        (CASE WHEN P = 5 THEN 1.0 ELSE 0.0 END) +
+        (CASE WHEN DATEDIFF(data_entrega, CURRENT_DATE) BETWEEN 0 AND 3 THEN 1.0 ELSE 0.0 END) +
+        (CASE WHEN DATEDIFF(data_entrega, CURRENT_DATE) < 0 THEN 1.0 ELSE 0.0 END)
+    ) AS ipa_final
+FROM ipa_base;
 
 -- ==================== FIRST INSERTS ==================== 
 -- Limpando dados antigos para evitar duplicidade
