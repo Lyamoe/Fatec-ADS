@@ -2,7 +2,7 @@
 define("HOST", "localhost");
 define("USER", "root");
 define("PASSWORD", "");
-define("DATABASE", "gelateria_stock");
+define("DATABASE", "gelogest");
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
 // Verifica a criação do DATABASE

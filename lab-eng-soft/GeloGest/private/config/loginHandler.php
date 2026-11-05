@@ -34,7 +34,7 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
         $pass = $_POST['password'] ?? '';
 
         if ($user === '' || $pass === '') {
-            echo "<script>window.alert('Preencha todos os campos!');</script>";
+            showLoginError($current_time, "emptyfields");
         } else {
             $stmt = $mysqli->prepare("SELECT * FROM user_login WHERE user_name = ?");
             $stmt->bind_param("s", $user);
@@ -54,18 +54,18 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
                     header("Location:../../public/index.php");
                     exit();
                 } else {
-                    wrongLogin($current_time);
+                    showLoginError($current_time, "incorrectlogin");
                 }
             } else {
-                wrongLogin($current_time);
+                showLoginError($current_time, "incorrectlogin");
             }
         }
     }
 }
 
-function wrongLogin($current_time){
+function showLoginError($current_time, $errorType){
     $_SESSION['login_attempts']++;
     $_SESSION['last_attempt_time'] = $current_time;
-    header('location:../../public/pages/login.php?fail=1');
+    header("Location:../../public/pages/login.php?fail={$errorType}");
     exit();
 }

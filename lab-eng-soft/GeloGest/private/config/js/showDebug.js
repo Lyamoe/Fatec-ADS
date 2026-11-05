@@ -7,8 +7,12 @@ function finishDebug(state) {
 const urlParams = new URLSearchParams(window.location.search);
 
 const messages = {
-	"fail=1": {
+	"fail=incorrectlogin": {
 		message: "Nome de usuário ou senha incorretos.",
+		state: "fail",
+	},
+	"fail=emptyfields": {
+		message: "Não deixe campos vazios.",
 		state: "fail",
 	},
 };

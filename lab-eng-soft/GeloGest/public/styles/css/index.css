@@ -148,6 +148,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #c1ebb7;
   height: min(5vh, 100px);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-shrink: 0;
 }
 
