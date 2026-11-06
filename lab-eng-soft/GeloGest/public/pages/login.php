@@ -29,26 +29,27 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
         <link rel="icon" type="image/png" sizes="32x32" href="../img/siteIcon.png" />
     </head>
 
-    <body class="d-flex justify-content-center align-items-center vh-100">
-        <form action="../../private/config/loginHandler.php" method="POST" class="p-4 rounded shadow login-form green-text-box container">
-            <h2 class="text-center mb-4">Login</h2>
+    <body>
+        <form action="../../private/config/loginHandler.php" method="POST">
+            <h2>Login</h2>
 
-            <div class="mb-3">
-                <label for="username" class="form-label redish-text">Username</label>
-                <input type="text" name="username" id="username" class="form-control" required />
+            <div>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required />
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label redish-text">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required />
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required />
             </div>
 
-            <button type="submit" name="login-submit" class="btn btn-success w-100">Login</button>
+            <button type="submit" name="login-submit">Login</button>
         </form>
 
-        <script src="../../private/config/js/showDebug.js"></script>
-    </body>
+        <a href="criar-conta-empresa.php">Criar conta para minha empresa</a>
 
+        <script src="<?php echo BASE_URL; ?>public/js/showLoginError.js"></script>
+    </body>
 
     </html>
     <?php

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../private/config/sqlFields.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['delete_id'])) {
         $id = intval($_POST['delete_id']);
-        $mysqli->query("DELETE FROM projects WHERE id = $id");
+        $conn->query("DELETE FROM projects WHERE id = $id");
         header("Location: index.php?deleted=1");
         exit;
     }
@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = intval($_POST['edit_id']);
         $project = $_POST['projects'][$id];
 
-        $name = $mysqli->real_escape_string($project['game_name']);
-        $desc = $mysqli->real_escape_string($project['game_desc']);
-        $alt = $mysqli->real_escape_string($project['game_banner_alt']);
+        $name = $conn->real_escape_string($project['game_name']);
+        $desc = $conn->real_escape_string($project['game_desc']);
+        $alt = $conn->real_escape_string($project['game_banner_alt']);
 
         if (isset($_FILES['project_banners']['name'][$id]) && $_FILES['project_banners']['error'][$id] == 0) {
             $file = [
@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ];
             $relativePath = uploadFile($file, $sqlTables[2], $sqlFields[9], null, true);
 
-            $mysqli->query("UPDATE projects SET 
+            $conn->query("UPDATE projects SET 
                 game_name='$name', 
                 game_desc='$desc', 
                 game_banner='$relativePath', 
                 game_banner_alt='$alt' 
                 WHERE id=$id");
         } else {
-            $mysqli->query("UPDATE projects SET 
+            $conn->query("UPDATE projects SET 
                 game_name='$name', 
                 game_desc='$desc', 
                 game_banner_alt='$alt' 
@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-$result = $mysqli->query("SELECT * FROM projects");
+$result = $conn->query("SELECT * FROM projects");
 if (!$result) {
-    error_log("Erro ao buscar projetos: " . $mysqli->error);
+    error_log("Erro ao buscar projetos: " . $conn->error);
     header("Location: index.php?fail=11");
     exit;
 }

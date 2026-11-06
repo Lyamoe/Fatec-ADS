@@ -154,10 +154,41 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 
-h1 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Lilita One", cursive;
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+p,
+label,
+legend,
+span,
+a,
+input {
+  font-family: "IBM Plex Sans Condensed", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  font-size: 1.2rem;
+  color: #1b3814;
+  border: 1px solid #1b3814;
+  background-color: #c1ebb7;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+button:hover {
+  background-color: #1b3814;
+  color: #c1ebb7;
 }
 
 .hero {

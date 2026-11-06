@@ -1,10 +1,6 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once __DIR__ . '/../private/config/connect.php';
-require_once __DIR__ . '/../private/config/getData.php';
+require_once __DIR__ . '/../private/config/generalCallings.php';
+require_once BASE_PATH . 'private/config/getData.php';
 
 $companyName = getCompanyName();
 $headingText = !empty($companyName)
@@ -54,10 +50,8 @@ $metaDescription = "GeloGest é a plataforma completa para controle de estoque, 
 </head>
 
 <body class="body">
-    <!-- ==================== HEADER ==================== -->
-    <?php require_once __DIR__ . '/pages/includes/header.php'; ?>
+    <?php require_once BASE_PATH . 'public/pages/includes/header.php'; ?>
 
-    <!-- ==================== MAIN ==================== -->
     <main id="home" class="main">
         <div class="hero">
             <h1 class="hero__title"><?= $headingText ?></h1>
@@ -95,8 +89,7 @@ $metaDescription = "GeloGest é a plataforma completa para controle de estoque, 
         </section>
     </main>
 
-    <!-- ==================== FOOTER ==================== -->
-    <?php require_once __DIR__ . '/pages/includes/footer.php'; ?>
+    <?php require_once BASE_PATH . 'public/pages/includes/footer.php'; ?>
 </body>
 
 </html>

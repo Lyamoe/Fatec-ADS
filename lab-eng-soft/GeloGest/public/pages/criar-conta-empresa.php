@@ -1,8 +1,5 @@
 <?php
-session_start();
-require_once __DIR__ . '/../../private/config/addCompanyHandler.php';
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/footer.php';
+require_once __DIR__ . '/../../private/config/generalCallings.php';
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
     header("Location:../index.php");
@@ -20,20 +17,20 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <!-- Core SEO Meta Tags -->
+        <!-- //*  Core SEO Meta Tags -->
         <title><?= $pageTitle ?></title>
         <meta name="description" content="<?= $metaDescription ?>" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://gelogest.infinityfreeapp.com" />
 
-        <!-- Open Graph (Facebook / WhatsApp / LinkedIn preview) -->
+        <!-- //*  Open Graph (Facebook / WhatsApp / LinkedIn preview) -->
         <meta property="og:type" content="website" />
         <meta property="og:title" content="<?= $pageTitle ?>" />
         <meta property="og:description" content="<?= $metaDescription ?>" />
         <meta property="og:image" content="https://gelogest.infinityfreeapp.com/img/og-preview.png" />
         <!-- // todo: update to actual picture -->
 
-        <!-- Assets -->
+        <!-- //*  Assets -->
         <link rel="icon" type="image/png" sizes="32x32" href="img/siteIcon.png" />
         <!-- // todo: update to actual picture -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,29 +42,50 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
             integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="styles/css/login.css" />
+        <link rel="stylesheet" href="../styles/css/login.css" />
     </head>
 
-    <body>
-        <form action="../../private/config/addCompanyHandler.php" method="POST">
-            <h2>Adicione sua empresa</h2>
+    <body class="body">
+        <?php require_once BASE_PATH . 'public/pages/includes/header.php'; ?>
 
-            <div >
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" required />
-            </div>
+        <main class="main">
+            <form class="login-form" action="../../private/config/addCompanyHandler.php" method="POST">
+                <h2 class="login-form__title">Adicione sua empresa</h2>
 
-            <div >
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required />
-            </div>
+                <div class="login-form__field">
+                    <label class="login-form__label" for="company-name">Nome da empresa</label>
+                    <input class="login-form__input" type="text" name="company-name" id="company-name" required />
+                </div>
 
-            <button type="submit" name="login-submit">Login</button>
-        </form>
+                <div class="login-form__field">
+                    <label class="login-form__label" for="username">Nome do seu usuário</label>
+                    <input class="login-form__input" type="text" name="username" id="username" required />
+                </div>
 
-        <script src="../../private/config/js/showDebug.js"></script>
+                <div class="login-form__field">
+                    <label class="login-form__label" for="email">Email</label>
+                    <input class="login-form__input" type="email" name="email" id="email" required />
+                </div>
+
+                <div class="login-form__field">
+                    <label class="login-form__label" for="password">Crie uma senha</label>
+                    <input class="login-form__input" type="password" name="password" id="password" required />
+                </div>
+
+                <div class="login-form__field">
+                    <label class="login-form__label" for="confirm-password">Confirme sua senha</label>
+                    <input class="login-form__input" type="password" name="confirm-password" id="confirm-password"
+                        required />
+                </div>
+
+                <button class="login-form__submit" type="submit" name="create-account">Criar conta</button>
+            </form>
+        </main>
+
+        <?php require_once BASE_PATH . 'public/pages/includes/footer.php'; ?>
+
+        <script src="<?php echo BASE_URL; ?>public/js/showCreateAccountError.js"></script>
     </body>
-
 
     </html>
     <?php

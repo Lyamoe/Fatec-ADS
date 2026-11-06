@@ -1,11 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../../../private/config/generalCallings.php';
 
 $loggedIn = isset($_SESSION['user_id']);
-$loginButtonText = $loggedIn ? "Logout" : "Login";
-$loginDestination = $loggedIn ? "pages/logout.php" : "pages/login.php";
+$loginButtonText = $loggedIn ? "Logout" : "Login | Criar Conta";
+$loginDestination = BASE_URL . ($loggedIn ? "public/pages/logout.php" : "public/pages/login.php");
 ?>
 
 <header id="header-container" class="header">

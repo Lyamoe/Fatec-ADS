@@ -4,12 +4,12 @@ require_once __DIR__ . '/../private/config/sqlFields.php';
 
 // ? Functions under there
 function insertProject($data) {
-    global $mysqli;
+    global $conn;
     $sql = "INSERT INTO projects (game_name, game_desc, game_banner, game_banner_alt) VALUES (?, ?, ?, ?)";
 
-    $stmt = $mysqli->prepare($sql);
+    $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        error_log("Erro ao preparar SQL: {$mysqli->error}");
+        error_log("Erro ao preparar SQL: {$conn->error}");
         header('location:../public/admin/index.php?fail=8');
         exit;
     }
@@ -33,13 +33,13 @@ function insertProject($data) {
 
 function processFormInput($table, $inputId, $sqlField = null, $path = null)
 {
-    global $mysqli, $sqlTables;
+    global $conn, $sqlTables;
     validateTable($table, $sqlTables);
     if ($sqlField === null) {
         $sqlField = $inputId;
     }
     $value = getValueFromInput($inputId, $path);
-    executeDbQuery($mysqli, $table, $sqlField, $value, $sqlTables);
+    executeDbQuery($conn, $table, $sqlField, $value, $sqlTables);
 }
 
 function validateTable($table, $sqlTables)
@@ -65,15 +65,15 @@ function getValueFromInput($inputId, $path)
     }
 }
 
-function executeDbQuery($mysqli, $table, $sqlField, $value, $sqlTables)
+function executeDbQuery($conn, $table, $sqlField, $value, $sqlTables)
 {
     $sql = $table !== $sqlTables[2]
         ? "UPDATE {$table} SET {$sqlField} = ? WHERE id = 1"
         : "INSERT INTO {$table} ({$sqlField}) VALUES (?)";
 
-    $stmt = $mysqli->prepare($sql);
+    $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        error_log("Erro ao preparar SQL: {$mysqli->error}");
+        error_log("Erro ao preparar SQL: {$conn->error}");
         header('location:../public/admin/index.php?fail=8');
         exit;
     }

@@ -54,9 +54,11 @@ CREATE TABLE `user_login` (
   `company_id` int(11) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
   `user_type` enum('admin','owner','user') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`),
+  UNIQUE KEY `user_email` (`user_email`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `user_login_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

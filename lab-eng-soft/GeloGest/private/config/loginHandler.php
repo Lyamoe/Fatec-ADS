@@ -36,7 +36,7 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
         if ($user === '' || $pass === '') {
             showLoginError($current_time, "emptyfields");
         } else {
-            $stmt = $mysqli->prepare("SELECT * FROM user_login WHERE user_name = ?");
+            $stmt = $conn->prepare("SELECT * FROM user_login WHERE user_name = ?");
             $stmt->bind_param("s", $user);
             $stmt->execute();
             $getData = $stmt->get_result();
