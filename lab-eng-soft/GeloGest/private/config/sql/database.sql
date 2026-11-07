@@ -49,7 +49,7 @@ CREATE TABLE `flavors` (
 -- --------------------------------------------------------
 -- 4. Table structure `user_login`
 -- --------------------------------------------------------
-CREATE TABLE `user_login` (
+CREATE TABLE `users_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
   `user_name` varchar(255) NOT NULL,
@@ -146,10 +146,10 @@ INSERT INTO `flavors` (`company_id`, `flavor_name`) VALUES
 (2, 'Reeses'),
 (2, 'Torta de limão');
 
-INSERT INTO `user_login` (`company_id`, `user_name`, `user_password`, `user_type`) VALUES
-(1, 'TestAdmin', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'admin'),
-(1, 'TestUser', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'user'),
-(2, 'LyamPeres', '$2a$12$lJYhxO..xCUxSSjfwbbJne6cwqyPpUckY8AO.pR7I7rOFE1rrCYM2', 'admin');
+INSERT INTO `user_login` (`company_id`, `user_name`, `user_password`, `user_email`, `user_type`) VALUES
+(1, 'TestAdmin', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'a@a.a', 'admin'),
+(1, 'TestUser', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'b@b.b', 'user'),
+(2, 'LyamPeres', '$2a$12$lJYhxO..xCUxSSjfwbbJne6cwqyPpUckY8AO.pR7I7rOFE1rrCYM2', 'lyamoesp@gmail.com', 'admin');
 
 INSERT INTO `stock_items` (`company_id`, `flavor_id`, `container_id`, `arrival_date`, `best_before_date`, `status`, `current_gross_weight_grams`, `current_net_weight_grams`) VALUES
 (2, 1, 1, '2023-10-01', '2023-10-15', 'display', 3217, 2417),

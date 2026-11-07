@@ -69,7 +69,9 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
 
                 <div class="login-form__field">
                     <label class="login-form__label" for="password">Crie uma senha</label>
-                    <input class="login-form__input" type="password" name="password" id="password" required />
+                    <input class="login-form__input" type="password" name="password" id="password" minlength="8" required
+                        aria-describedby="password-help" />
+                    <p class="login-form__help" id="password-help">Insira no mínimo 8 caracteres</p>
                 </div>
 
                 <div class="login-form__field">

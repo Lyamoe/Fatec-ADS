@@ -1,6 +1,5 @@
 ## Random
 .prettierrc
-*.scss
 
 ## Map files
 *.css.map
