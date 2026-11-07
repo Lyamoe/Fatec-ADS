@@ -83,7 +83,7 @@ $metaDescription = "GeloGest é a plataforma completa para controle de estoque, 
                 <?php endif; ?>
                 <a class="options__button" href="pages/consulta-estoque.php">
                     <span>Consultar estoque</span>
-                    <span class="options__desc">Conferir estoque em um período</span>
+                    <span class="options__desc">Conferir sabores em estoque atual</span>
                 </a>
             </div>
         </section>

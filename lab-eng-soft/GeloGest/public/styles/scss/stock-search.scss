@@ -1,0 +1,135 @@
+@use "Common";
+
+// =================================================================ar
+// todo: Trocar para @use "Variables" quando recuperar o arquivo
+// =================================================================
+$color-primary: #1b3814;
+$color-secondary: #c1ebb7;
+$color-text: #333333;
+$color-light: #ecf0ec;
+$color-border: $color-primary;
+$border-radius: 4px;
+
+// =================================================================
+// Estilos Globais do Corpo e Main
+// =================================================================
+
+.main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+// =================================================================
+// Bloco: .stock-header (Cabeçalho da Seção)
+// =================================================================
+.stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &__title {
+        font-size: 1.75rem;
+        color: $color-primary;
+        margin: 0;
+    }
+}
+
+// =================================================================
+// Bloco: .stock-filter (Filtro de Data)
+// =================================================================
+.stock-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__label {
+        font-weight: 600;
+        color: $color-primary;
+    }
+
+    &__input {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid $color-border;
+        border-radius: $border-radius;
+        font-size: 1rem;
+        color: $color-text;
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: $color-secondary;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+    }
+}
+
+// =================================================================
+// Bloco: .stock-table (Tabela de Estoque)
+// =================================================================
+.stock-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+
+    &__head {
+        background-color: $color-primary;
+    }
+
+    &__row {
+        border-bottom: 1px solid $color-border;
+        transition: background-color 0.15s ease;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:not(.stock-table__row--header):hover {
+            background-color: $color-light;
+        }
+
+        &--header {
+            font-weight: 600;
+        }
+    }
+
+    &__cell {
+        padding: 0.85rem 1rem;
+        color: $color-text;
+
+        &--header {
+            font-weight: 600;
+            border-bottom: 2px solid $color-border;
+            color: $color-light;
+        }
+    }
+}
+
+// =================================================================
+// Bloco: .stock-message (Mensagem de Alerta/Vazio)
+// =================================================================
+.stock-message {
+    padding: 1.5rem;
+    background-color: $color-light;
+    border: 1px solid $color-border;
+    border-radius: $border-radius;
+    text-align: center;
+    color: #666666;
+    font-size: 1rem;
+    margin-top: 1rem;
+}

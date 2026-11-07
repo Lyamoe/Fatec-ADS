@@ -6,7 +6,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
     exit();
 } else {
     // Set page metadata
-    $pageTitle = "GeloGest | Formulário de Criação de Conta";
+    $pageTitle = "Formulário de Criação de Conta | GeloGest";
     $metaDescription = "Cadastre sua empresa e crie uma conta para gerenciar o estoque da sua gelateria com GeloGest.";
     ?>
 
