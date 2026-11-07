@@ -344,6 +344,7 @@ button:hover {
 
 .stock-table-wrapper {
   width: 100%;
+  max-width: 90vw;
   overflow-x: auto;
   border-radius: 4px;
   border: 1px solid #1b3814;

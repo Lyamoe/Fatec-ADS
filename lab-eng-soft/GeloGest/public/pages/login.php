@@ -28,11 +28,11 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
         <meta property="og:title" content="<?= $pageTitle ?>" />
         <meta property="og:description" content="<?= $metaDescription ?>" />
         <meta property="og:image" content="https://gelogest.infinityfreeapp.com/img/og-preview.png" />
-        <!-- //* ========== todo: update to actual picture -->
+        <!-- // todo: update to actual picture -->
 
         <!-- //*  Assets -->
         <link rel="icon" type="image/png" sizes="32x32" href="img/siteIcon.png" />
-        <!-- //* ========== todo: update to actual picture -->
+        <!-- // todo: update to actual picture -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link

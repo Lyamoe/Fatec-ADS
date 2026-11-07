@@ -74,6 +74,7 @@ $border-radius: 4px;
 // =================================================================
 .stock-table-wrapper {
     width: 100%;
+    max-width: 90vw;
     overflow-x: auto;
     border-radius: $border-radius;
     border: 1px solid $color-border;
