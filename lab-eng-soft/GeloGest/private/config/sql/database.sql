@@ -47,7 +47,7 @@ CREATE TABLE `flavors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
--- 4. Table structure `user_login`
+-- 4. Table structure `users_login`
 -- --------------------------------------------------------
 CREATE TABLE `users_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -60,7 +60,7 @@ CREATE TABLE `users_login` (
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`),
   KEY `company_id` (`company_id`),
-  CONSTRAINT `user_login_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
+  CONSTRAINT `users_login_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `daily_stock_logs` (
   KEY `stock_item_id` (`stock_item_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `daily_stock_logs_ibfk_1` FOREIGN KEY (`stock_item_id`) REFERENCES `stock_items` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `daily_stock_logs_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user_login` (`id`) ON DELETE SET NULL
+  CONSTRAINT `daily_stock_logs_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users_login` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -146,7 +146,7 @@ INSERT INTO `flavors` (`company_id`, `flavor_name`) VALUES
 (2, 'Reeses'),
 (2, 'Torta de limão');
 
-INSERT INTO `user_login` (`company_id`, `user_name`, `user_password`, `user_email`, `user_type`) VALUES
+INSERT INTO `users_login` (`company_id`, `user_name`, `user_password`, `user_email`, `user_type`) VALUES
 (1, 'TestAdmin', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'a@a.a', 'admin'),
 (1, 'TestUser', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'b@b.b', 'user'),
 (2, 'LyamPeres', '$2a$12$lJYhxO..xCUxSSjfwbbJne6cwqyPpUckY8AO.pR7I7rOFE1rrCYM2', 'lyamoesp@gmail.com', 'admin');

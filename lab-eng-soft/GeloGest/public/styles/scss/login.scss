@@ -1,0 +1,51 @@
+@use "Variables" as v;
+@use "Common";
+
+// todo: add a background image to the login page
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.login-form {
+	width: 90%;
+
+	&__title {
+		text-align: center;
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	&__field {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1rem;
+		width: 100%;
+	}
+
+	&__input {
+		padding: 0.5rem;
+		margin-bottom: 0;
+		border: 1px solid v.$primary-color-dark;
+		border-radius: 4px;
+	}
+
+	&__submit {
+		width: 100%;
+		text-align: center;
+		margin-top: 1rem;
+	}
+}
+
+@media (min-width: v.$tablet-width) {
+	.login-form {
+		width: 50%;
+		background-color: #fff;
+		border-radius: 8px;
+		padding: 2rem;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+}

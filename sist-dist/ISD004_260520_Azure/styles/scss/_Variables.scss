@@ -1,0 +1,41 @@
+@use "sass:color";
+
+//* ========================================
+//* VARIÁVEIS SCSS
+//* ========================================
+
+//* ---------- Cores ----------
+$primary-color: #0078d4; /* Azul Azure */
+$success-color: #107c41; /* Verde Azure */
+$danger-color: #a80000; /* Vermelho Azure */
+$background: #f3f2f1;
+$card-bg: #ffffff;
+$text-main: #323130;
+$text-muted: #605e5c;
+$border-color: #edebe9;
+
+//* ========================================
+//* FUNÇÕES SCSS
+//* ========================================
+
+@function reduzir-rgb($cor-original, $reducao: 20) {
+	// Extrai os valores originais de cada canal
+	$r: color.channel($cor-original, "red", $space: rgb);
+	$g: color.channel($cor-original, "green", $space: rgb);
+	$b: color.channel($cor-original, "blue", $space: rgb);
+
+	$novo-r: max(0, $r - $reducao);
+	$novo-g: max(0, $g - $reducao);
+	$novo-b: max(0, $b - $reducao);
+
+	@return rgb($novo-r, $novo-g, $novo-b);
+}
+
+//* ========================================
+//* MAPAS SCSS
+//* ========================================
+$botoes-cores: (
+    "add": $primary-color,
+    "concluir": $success-color,
+    "excluir": $danger-color,
+);

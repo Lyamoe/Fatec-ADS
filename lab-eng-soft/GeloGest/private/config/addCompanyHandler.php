@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['create-account'])) {
 //* ========== Capturar e sanitizar as entradas do formulário
 $companyName = trim($_POST['company-name'] ?? '');
 $username = trim($_POST['username'] ?? '');
-$emailRaw = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+$emailRaw = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 $confirmPassword = $_POST['confirm-password'] ?? '';
 

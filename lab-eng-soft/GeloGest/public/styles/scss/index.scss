@@ -1,0 +1,58 @@
+@use "Variables" as v;
+@use "Common";
+
+.hero {
+	height: 40vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background: #2a7b9b;
+	background: linear-gradient(
+		90deg,
+		rgb(149, 196, 214) 0%,
+		rgb(150, 228, 182) 50%,
+		rgb(252, 246, 194) 100%
+	);
+}
+
+.options {
+    &__title {
+        font-family: v.$title-font-family;
+        font-size: 1.7rem;
+        margin-top: 3rem;
+        text-align: center;
+    }
+
+	&__buttons {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+        padding: 2rem 1rem;
+	}
+
+	&__button {
+		font-size: 1.2rem;
+		color: v.$primary-color-dark;
+		background-color: v.$primary-color-light;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		transition: all 0.3s ease;
+		max-width: 20vw;
+		text-align: center;
+
+		&:hover {
+			background-color: v.$primary-color-dark;
+			color: v.$primary-color-light;
+		}
+
+		& > span {
+			display: block;
+		}
+	}
+
+	&__desc {
+		font-size: 1rem;
+		margin-top: 0.5rem;
+	}
+}

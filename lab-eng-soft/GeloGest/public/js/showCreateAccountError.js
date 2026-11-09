@@ -23,6 +23,10 @@ const messages = {
 		message: "Não deixe campos vazios.",
 		state: "fail",
 	},
+	"fail=invalidemail": {
+		message: "O email é inválido.",
+		state: "fail",
+	},
 };
 
 const params = new URLSearchParams(window.location.search);

@@ -1,51 +1,53 @@
 @use "Reset";
+@use "Variables" as v;
 
 .body {
-  font-family: "IBM Plex Sans Condensed", sans-serif;
-  background-color: #ecf0ec;
-  color: #333333;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+	font-family: "IBM Plex Sans Condensed", sans-serif;
+	background-color: v.$background-color;
+	color: v.$text-color;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 .header {
-  background-color: #1b3814;
-  color: #c1ebb7;
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-  align-items: center;
-}
-.header__title {
-  font-family: "Lilita One", cursive;
-  font-size: 1.5rem;
-  margin-left: 1rem;
-}
-.header__link {
-  font-family: "IBM Plex Sans Condensed", sans-serif;
-  font-size: 1.2rem;
-  margin-right: 1rem;
-  text-decoration: none;
-  color: #c1ebb7;
-}
-.header__link:hover {
-  text-decoration: underline;
+	background-color: v.$primary-color-dark;
+	color: v.$primary-color-light;
+	display: flex;
+	justify-content: space-between;
+	height: 50px;
+	align-items: center;
+
+	&__title {
+		font-size: 1.5rem;
+		margin-left: 1rem;
+	}
+
+	&__link {
+		font-size: 1.2rem;
+		margin-right: 1rem;
+		text-decoration: none;
+		color: v.$primary-color-light;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .main {
-  flex: 1 0 auto;
+	flex: 1 0 auto;
 }
 
 .footer {
-  background-color: #1b3814;
-  color: #c1ebb7;
-  height: min(5vh, 100px);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
+	background-color: v.$primary-color-dark;
+	color: v.$primary-color-light;
+	height: min(5vh, 100px);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
 }
 
 h1,
@@ -54,9 +56,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Lilita One", cursive;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+	font-family: v.$title-font-family;
+	font-size: 2rem;
+	margin-bottom: 1rem;
 }
 
 p,
@@ -65,22 +67,23 @@ legend,
 span,
 a,
 input {
-  font-family: "IBM Plex Sans Condensed", sans-serif;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+	font-family: v.$main-font-family;
+	font-size: 1rem;
+	margin-bottom: 1rem;
 }
 
 button {
-  font-size: 1.2rem;
-  color: #1b3814;
-  border: 1px solid #1b3814;
-  background-color: #c1ebb7;
-  padding: 0.5rem 1.5rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-button:hover {
-  background-color: #1b3814;
-  color: #c1ebb7;
+	font-size: 1.2rem;
+	color: v.$primary-color-dark;
+	border: 1px solid v.$primary-color-dark;
+	background-color: v.$primary-color-light;
+	padding: 0.5rem 1.5rem;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	text-align: center;
+
+	&:hover {
+		background-color: v.$primary-color-dark;
+		color: v.$primary-color-light;
+	}
 }
