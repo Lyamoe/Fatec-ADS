@@ -6,6 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 	flex-direction: column;
 	background: #2a7b9b;
 	background: linear-gradient(
@@ -63,5 +64,18 @@
 	&__desc {
 		font-size: 1rem;
 		margin-top: 0.5rem;
+	}
+}
+
+@media (max-width: v.$tablet-width) {
+	.options {
+		&__buttons {
+			flex-direction: column;
+		}
+
+		&__button {
+			max-width: 80vw;
+			margin-bottom: 1rem;
+		}
 	}
 }

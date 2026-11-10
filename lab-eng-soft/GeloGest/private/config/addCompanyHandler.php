@@ -78,7 +78,7 @@ try {
     $conn->commit();
 
     //* ========== Redirecionar para login ou dashboard com sucesso
-    header("Location: " . BASE_URL . "public/index.php");
+    header("Location: " . BASE_URL . "public/home.php");
     exit();
 
 } catch (Exception $e) {

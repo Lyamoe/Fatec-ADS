@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../private/config/generalCallings.php';
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
-    header("Location: ../index.php");
+    header("Location: ../home.php");
     exit();
 } else {
     //* ========== Set page metadata

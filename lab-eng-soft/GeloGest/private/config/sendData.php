@@ -10,7 +10,7 @@ function insertProject($data) {
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log("Erro ao preparar SQL: {$conn->error}");
-        header('location:../public/admin/index.php?fail=8');
+        header('location:../public/admin/home.php?fail=8');
         exit;
     }
 
@@ -24,7 +24,7 @@ function insertProject($data) {
 
     if (!$stmt->execute()) {
         error_log("Erro ao executar SQL: {$stmt->error}");
-        header('location:../public/admin/index.php?fail=9');
+        header('location:../public/admin/home.php?fail=9');
         exit;
     }
 
@@ -46,7 +46,7 @@ function validateTable($table, $sqlTables)
 {
     if (!in_array($table, $sqlTables)) {
         error_log("Tentativa de acesso a tabela inválida: {$table}");
-        header('location:../public/admin/index.php?fail=6');
+        header('location:../public/admin/home.php?fail=6');
         exit;
     }
 }
@@ -56,7 +56,7 @@ function getValueFromInput($inputId, $path)
     if ($path === null) {
         $value = trim($_POST[$inputId]);
         if (strlen($value) < 4) {
-            header('location:../public/admin/index.php?fail=7');
+            header('location:../public/admin/home.php?fail=7');
             exit;
         }
         return $value;
@@ -74,14 +74,14 @@ function executeDbQuery($conn, $table, $sqlField, $value, $sqlTables)
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log("Erro ao preparar SQL: {$conn->error}");
-        header('location:../public/admin/index.php?fail=8');
+        header('location:../public/admin/home.php?fail=8');
         exit;
     }
 
     $stmt->bind_param("s", $value);
     if (!$stmt->execute()) {
         error_log("Erro ao executar SQL: {$stmt->error}");
-        header('location:../public/admin/index.php?fail=9');
+        header('location:../public/admin/home.php?fail=9');
         exit;
     }
 
@@ -120,7 +120,7 @@ function validateUploadDir($uploadDir)
     if (!is_dir($uploadDir)) {
         if (!mkdir($uploadDir, 0777, true)) {
             error_log("Falha ao criar diretório de upload: $uploadDir");
-            header('location:../public/admin/index.php?fail=1');
+            header('location:../public/admin/home.php?fail=1');
             exit;
         }
     }
@@ -130,7 +130,7 @@ function validateFileError($file)
 {
     if ($file['error'] !== UPLOAD_ERR_OK) {
         error_log("Erro no upload: código de erro " . $file['error']);
-        header('location:../public/admin/index.php?fail=2');
+        header('location:../public/admin/home.php?fail=2');
         exit;
     }
 }
@@ -138,7 +138,7 @@ function validateFileError($file)
 function validateFileSize($file, $maxFileSize)
 {
     if ($file['size'] > $maxFileSize) {
-        header('location:../public/admin/index.php?fail=3');
+        header('location:../public/admin/home.php?fail=3');
         exit;
     }
 }
@@ -149,7 +149,7 @@ function validateMimeType($file, $allowedTypes)
     $mimeType = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
     if (!in_array($mimeType, $allowedTypes)) {
-        header('location:../public/admin/index.php?fail=4');
+        header('location:../public/admin/home.php?fail=4');
         exit;
     }
 }
@@ -173,7 +173,7 @@ function moveUploadedFile($tmpPath, $targetPath)
 {
     if (!move_uploaded_file($tmpPath, $targetPath)) {
         error_log("Falha ao mover o arquivo para: $targetPath");
-        header('location:../public/admin/index.php?fail=5');
+        header('location:../public/admin/home.php?fail=5');
         exit;
     }
 }
@@ -182,29 +182,29 @@ function moveUploadedFile($tmpPath, $targetPath)
 //* ==================== Post set ====================
 if (isset($_POST['title-submit'])) {
     processFormInput($sqlTables[0], $sqlFields[0]);
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }
 if (isset($_POST['subtitle-submit'])) {
     processFormInput($sqlTables[0], $sqlFields[1]);
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }
 if (isset($_POST['self-desc-submit'])) {
     processFormInput($sqlTables[1], 'self-desc', $sqlFields[2]);
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }
 if (isset($_POST['pfp-submit'])) {
     uploadFile($_FILES['profile-picture'], $sqlTables[1], $sqlFields[3], "pfp");
     processFormInput($sqlTables[1], 'pfp-alt', $sqlFields[4]);
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }
 if (isset($_POST['profile-banner-submit'])) {
     uploadFile($_FILES['profile-banner'], $sqlTables[1], $sqlFields[5], "banner");
     processFormInput($sqlTables[1], 'banner-alt', $sqlFields[6]);
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }
 if (isset($_POST['projects-submit'])) {
@@ -213,7 +213,7 @@ if (isset($_POST['projects-submit'])) {
     $gameBannerAlt = trim($_POST['project-banner-alt']);
 
     if (strlen($gameName) < 4 || strlen($gameDesc) < 4) {
-        header('location:../public/admin/index.php?fail=7');
+        header('location:../public/admin/home.php?fail=7');
         exit;
     }
 
@@ -228,6 +228,6 @@ if (isset($_POST['projects-submit'])) {
 
     insertProject($data);
 
-    header('location:../public/admin/index.php?success=1');
+    header('location:../public/admin/home.php?success=1');
     exit;
 }

@@ -2,7 +2,13 @@
 define("HOST", "localhost");
 define("USER", "root");
 define("PASSWORD", "");
-define("DATABASE", "gelogest");
+define("DATABASE", "if0_43255295_gelogest");
+
+// define("HOST", "sql103.infinityfree.com");
+// define("USER", "if0_43255295");
+// define("PASSWORD", "glgMilane1213");
+// define("DATABASE", "if0_43255295_gelogest");
+
 $conn = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
 // Verifica a criação do DATABASE

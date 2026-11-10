@@ -7,8 +7,8 @@ SET time_zone = "-03:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE DATABASE IF NOT EXISTS `gelogest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gelogest`;
+CREATE DATABASE IF NOT EXISTS `if0_43255295_gelogest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `if0_43255295_gelogest`;
 
 -- --------------------------------------------------------
 -- 1. Table structure `companies`
@@ -147,9 +147,10 @@ INSERT INTO `flavors` (`company_id`, `flavor_name`) VALUES
 (2, 'Torta de limão');
 
 INSERT INTO `users_login` (`company_id`, `user_name`, `user_password`, `user_email`, `user_type`) VALUES
-(1, 'TestAdmin', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'a@a.a', 'admin'),
-(1, 'TestUser', '$2a$12$UL4ab1cjIikcgPSv5qwiTOwDold/Mb1Mn0iqTWe3xJFMPN5OfdeEe', 'b@b.b', 'user'),
-(2, 'LyamPeres', '$2a$12$lJYhxO..xCUxSSjfwbbJne6cwqyPpUckY8AO.pR7I7rOFE1rrCYM2', 'lyamoesp@gmail.com', 'admin');
+(1, 'TestAdmin', '$2a$12$hOYl4/jxixQp0ArbL5Rr5uyjui5E7k.xQ2KXQVSCsTxyQurDIB0Fq', 'a@a.a', 'admin'),
+(1, 'TestUser', '$2a$12$hOYl4/jxixQp0ArbL5Rr5uyjui5E7k.xQ2KXQVSCsTxyQurDIB0Fq', 'b@b.b', 'user'),
+(2, 'Juliana Molina', '$2a$12$hOYl4/jxixQp0ArbL5Rr5uyjui5E7k.xQ2KXQVSCsTxyQurDIB0Fq', 'c@c.c', 'admin'),
+(2, 'Karine Peres', '$2a$12$hOYl4/jxixQp0ArbL5Rr5uyjui5E7k.xQ2KXQVSCsTxyQurDIB0Fq', 'd@d.d', 'user');
 
 INSERT INTO `stock_items` (`company_id`, `flavor_id`, `container_id`, `arrival_date`, `best_before_date`, `status`, `current_gross_weight_grams`, `current_net_weight_grams`) VALUES
 (2, 1, 1, '2023-10-01', '2023-10-15', 'display', 3217, 2417),

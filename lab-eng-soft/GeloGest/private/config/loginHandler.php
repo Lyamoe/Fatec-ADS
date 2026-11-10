@@ -51,7 +51,7 @@ if ($_SESSION['login_attempts'] >= 5 && ($current_time - $_SESSION['last_attempt
                     $_SESSION['login_attempts'] = 0;
                     $_SESSION['last_attempt_time'] = 0;
                     echo "<script>console.log('Login realizado com sucesso!');</script>";
-                    header("Location:../../public/index.php");
+                    header("Location:../../public/home.php");
                     exit();
                 } else {
                     showLoginError($current_time, "incorrectlogin");

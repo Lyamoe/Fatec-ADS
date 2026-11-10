@@ -7,6 +7,6 @@ $loginDestination = BASE_URL . ($loggedIn ? "public/pages/logout.php" : "public/
 ?>
 
 <header id="header-container" class="header">
-    <a class="header__title" href="<?= BASE_URL ?>public/index.php">GeloGest</a>
+    <a class="header__title" href="<?= BASE_URL ?>public/home.php">GeloGest</a>
     <a class="header__link" href="<?= $loginDestination ?>"><?= $loginButtonText ?></a>
 </header>
