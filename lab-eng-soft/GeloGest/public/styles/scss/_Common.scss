@@ -8,6 +8,10 @@
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+
+	& > * {
+		font-family: v.$main-font-family;
+	}
 }
 
 .header {
@@ -66,8 +70,8 @@ label,
 legend,
 span,
 a,
-input {
-	font-family: v.$main-font-family;
+input,
+select {
 	font-size: 1rem;
 	margin-bottom: 1rem;
 }

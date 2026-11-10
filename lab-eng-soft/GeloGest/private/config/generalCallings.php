@@ -1,5 +1,6 @@
 <?php
 // Caminho de URL para links
+// define('BASE_URL', 'https://gelogest.infinityfreeapp.com/');
 define('BASE_URL', 'http://localhost/fatec-ADS/lab-eng-soft/GeloGest/');
 
 // Caminho de pasta/disco para arquivos PHP (servidor)

@@ -38,6 +38,14 @@
 		text-align: center;
 		margin-top: 1rem;
 	}
+
+	&__create-account {
+		display: block;
+		text-align: center;
+		margin-top: 1rem;
+		text-decoration: underline;
+		color: #4782c5;
+	}
 }
 
 @media (min-width: v.$tablet-width) {

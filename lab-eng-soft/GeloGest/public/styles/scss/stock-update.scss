@@ -1,0 +1,184 @@
+@use "Common";
+@use "Variables" as v;
+
+// ==========================================
+// Variables & Design Tokens
+// ==========================================
+
+$color-success-bg: #d1fae5;
+$color-success-text: #065f46;
+$color-success-border: #a7f3d0;
+
+$color-error-bg: #fee2e2;
+$color-error-text: #991b1b;
+$color-error-border: #fca5a5;
+
+$radius-sm: 6px;
+$radius-md: 10px;
+$shadow-card:
+	0 4px 6px -1px rgba(0, 0, 0, 0.05),
+	0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+// ==========================================
+// Global Body Setup
+// ==========================================
+.page-body {
+	background-color: v.$background-color;
+	color: v.$text-color;
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+
+// ==========================================
+// Alert Block Component (BEM)
+// ==========================================
+.alert {
+	padding: 1rem 1.25rem;
+	border-radius: $radius-sm;
+	font-weight: 700;
+	margin-bottom: 1.5rem;
+	border: 1px solid transparent;
+
+	&--success {
+		background-color: $color-success-bg;
+		color: $color-success-text;
+		border-color: $color-success-border;
+	}
+
+	&--error {
+		background-color: $color-error-bg;
+		color: $color-error-text;
+		border-color: $color-error-border;
+	}
+}
+
+// ==========================================
+// Stock Update Main Block (BEM)
+// ==========================================
+.stock-update {
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 0 1.5rem;
+
+	&__header {
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	&__title {
+		font-size: 2rem;
+		color: v.$primary-color-light;
+		margin: 0;
+		letter-spacing: 0.5px;
+	}
+
+	&__empty-message {
+		text-align: center;
+		font-size: 1.125rem;
+		background: v.$bg-color-card;
+		padding: 2.5rem;
+		border-radius: $radius-md;
+	}
+
+	&__actions {
+		margin-top: 2rem;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&__button {
+		background-color: v.$primary-color-light;
+		color: #fff;
+		border: none;
+		padding: 0.85rem 2rem;
+		font-size: 1.1rem;
+		font-weight: 700;
+		border-radius: $radius-sm;
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: v.$primary-color-dark;
+		}
+
+		&:focus-visible {
+			outline: 3px solid rgba(v.$primary-color-light, 0.4);
+			outline-offset: 2px;
+		}
+	}
+}
+
+// ==========================================
+// Stock Grid Block (BEM)
+// ==========================================
+.stock-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 1.5rem;
+}
+
+// ==========================================
+// Stock Card Block Component (BEM)
+// ==========================================
+.stock-card {
+	background-color: v.$bg-color-card;
+	border-radius: $radius-md;
+	box-shadow: $shadow-card;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+
+	&__flavor {
+		font-size: 1.35rem;
+		margin: 0 0 0.5rem 0;
+		color: v.$text-color;
+		padding-bottom: 0.5rem;
+	}
+
+	&__detail {
+		margin: 0;
+		font-size: 0.95rem;
+	}
+
+	&__value {
+		color: v.$text-color;
+		font-weight: 700;
+	}
+
+	&__field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		margin-top: 0.25rem;
+	}
+
+	&__label {
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: v.$text-color;
+	}
+
+	&__select,
+	&__input {
+		width: 100%;
+		padding: 0.6rem 0.75rem;
+		border: 1px solid v.$background-color;
+		border-radius: $radius-sm;
+		font-size: 0.95rem;
+		font-family: inherit;
+		box-sizing: border-box;
+
+		&:focus {
+			outline: none;
+			border-color: v.$primary-color-light;
+			box-shadow: 0 0 0 3px rgba(v.$primary-color-light, 0.15);
+		}
+	}
+
+	&__select {
+		background-color: #fff;
+		cursor: pointer;
+	}
+}

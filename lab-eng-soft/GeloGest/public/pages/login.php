@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
                 </div>
 
                 <div class="login-form__field">
-                    <label class="login-form__label" for="password">Password</label>
+                    <label class="login-form__label" for="password">Senha</label>
                     <input class="login-form__input" type="password" name="password" id="password" required />
                 </div>
 

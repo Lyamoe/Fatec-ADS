@@ -1,13 +1,6 @@
 @use "Common";
+@use "Variables" as v;
 
-// =================================================================ar
-// todo: Trocar para @use "Variables" quando recuperar o arquivo
-// =================================================================
-$color-primary: #1b3814;
-$color-secondary: #c1ebb7;
-$color-text: #333333;
-$color-light: #ecf0ec;
-$color-border: $color-primary;
 $border-radius: 4px;
 
 // =================================================================
@@ -33,7 +26,7 @@ $border-radius: 4px;
 
     &__title {
         font-size: 1.75rem;
-        color: $color-primary;
+        color: v.$primary-color-dark;
         margin: 0;
     }
 }
@@ -48,22 +41,22 @@ $border-radius: 4px;
 
     &__label {
         font-weight: 600;
-        color: $color-primary;
+        color: v.$primary-color-dark;
     }
 
     &__input {
         padding: 0.5rem 0.75rem;
-        border: 1px solid $color-border;
+        border: 1px solid v.$primary-color-dark;
         border-radius: $border-radius;
         font-size: 1rem;
-        color: $color-text;
+        color: v.$text-color;
         background-color: #ffffff;
         cursor: pointer;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
         &:focus {
             outline: none;
-            border-color: $color-secondary;
+            border-color: v.$primary-color-light;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
         }
     }
@@ -77,7 +70,7 @@ $border-radius: 4px;
     max-width: 90vw;
     overflow-x: auto;
     border-radius: $border-radius;
-    border: 1px solid $color-border;
+    border: 1px solid v.$primary-color-dark;
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -89,11 +82,11 @@ $border-radius: 4px;
     font-size: 0.95rem;
 
     &__head {
-        background-color: $color-primary;
+        background-color: v.$primary-color-dark;
     }
 
     &__row {
-        border-bottom: 1px solid $color-border;
+        border-bottom: 1px solid v.$primary-color-dark;
         transition: background-color 0.15s ease;
 
         &:last-child {
@@ -101,7 +94,7 @@ $border-radius: 4px;
         }
 
         &:not(.stock-table__row--header):hover {
-            background-color: $color-light;
+            background-color: v.$background-color;
         }
 
         &--header {
@@ -111,12 +104,12 @@ $border-radius: 4px;
 
     &__cell {
         padding: 0.85rem 1rem;
-        color: $color-text;
+        color: v.$text-color;
 
         &--header {
             font-weight: 600;
-            border-bottom: 2px solid $color-border;
-            color: $color-light;
+            border-bottom: 2px solid v.$primary-color-dark;
+            color: v.$background-color;
         }
     }
 }
@@ -126,8 +119,8 @@ $border-radius: 4px;
 // =================================================================
 .stock-message {
     padding: 1.5rem;
-    background-color: $color-light;
-    border: 1px solid $color-border;
+    background-color: v.$background-color;
+    border: 1px solid v.$primary-color-dark;
     border-radius: $border-radius;
     text-align: center;
     color: #666666;

@@ -76,7 +76,7 @@ $metaDescription = "GeloGest é a plataforma completa para controle de estoque, 
                         <span>Novo estoque</span>
                         <span class="options__desc">Chegada de produtos ao estoque</span>
                     </a>
-                    <a class="options__button options__button--disabled" href="pages/estoque-diario.php">
+                    <a class="options__button" href="pages/estoque-diario.php">
                         <span>Estoque diário</span>
                         <span class="options__desc">Atualização diária das quantidades</span>
                     </a>
