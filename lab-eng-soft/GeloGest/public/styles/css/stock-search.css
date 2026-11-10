@@ -225,21 +225,16 @@ h6 {
   height: 50px;
   align-items: center;
 }
-
 .header__title {
-  font-family: "Lilita One", cursive;
   font-size: 1.5rem;
   margin-left: 1rem;
 }
-
 .header__link {
-  font-family: "IBM Plex Sans Condensed", sans-serif;
   font-size: 1.2rem;
   margin-right: 1rem;
   text-decoration: none;
   color: #c1ebb7;
 }
-
 .header__link:hover {
   text-decoration: underline;
 }
@@ -291,7 +286,6 @@ button {
   transition: all 0.3s ease;
   text-align: center;
 }
-
 button:hover {
   background-color: #1b3814;
   color: #c1ebb7;

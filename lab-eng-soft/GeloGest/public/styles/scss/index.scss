@@ -17,18 +17,18 @@
 }
 
 .options {
-    &__title {
-        font-family: v.$title-font-family;
-        font-size: 1.7rem;
-        margin-top: 3rem;
-        text-align: center;
-    }
+	&__title {
+		font-family: v.$title-font-family;
+		font-size: 1.7rem;
+		margin-top: 3rem;
+		text-align: center;
+	}
 
 	&__buttons {
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
-        padding: 2rem 1rem;
+		padding: 2rem 1rem;
 	}
 
 	&__button {
@@ -41,9 +41,18 @@
 		max-width: 20vw;
 		text-align: center;
 
-		&:hover {
+		// Apply hover ONLY when not disabled
+		&:not(&--disabled):hover {
 			background-color: v.$primary-color-dark;
 			color: v.$primary-color-light;
+		}
+
+		&--disabled {
+			background-color: #dddcdc !important;
+			color: #7e7e7e !important;
+			opacity: 0.8;
+			pointer-events: none;
+			cursor: not-allowed;
 		}
 
 		& > span {

@@ -67,7 +67,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
 
             // Consulta SQL filtrando pela empresa atual e apenas pelos status 'in_stock' ou 'display'
             $query = "SELECT si.*, f.flavor_name, c.container_name, c.container_code, 
-                         MAX(dsl.created_at) AS last_updated
+                        si.best_before_date
                   FROM stock_items si
                   JOIN flavors f ON si.flavor_id = f.id
                   JOIN containers c ON si.container_id = c.id
@@ -92,7 +92,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
                 echo '<th class="stock-table__cell stock-table__cell--header">Status</th>';
                 echo '<th class="stock-table__cell stock-table__cell--header">Peso Bruto (g)</th>';
                 echo '<th class="stock-table__cell stock-table__cell--header">Peso Líquido (g)</th>';
-                echo '<th class="stock-table__cell stock-table__cell--header">Última Atualização</th>';
+                echo '<th class="stock-table__cell stock-table__cell--header">Validade</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody class="stock-table__body">';
@@ -108,7 +108,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
 
                     $gross = htmlspecialchars($row['current_gross_weight_grams']);
                     $net = htmlspecialchars($row['current_net_weight_grams']);
-                    $lastUpdated = $row['last_updated'] ? htmlspecialchars($row['last_updated']) : 'N/A';
+                    $bestBeforeDate = $row['best_before_date'] ? htmlspecialchars($row['best_before_date']) : 'N/A';
 
                     echo '<tr class="stock-table__row">';
                     echo "<td class=\"stock-table__cell\">{$flavor}</td>";
@@ -116,7 +116,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_name'])) {
                     echo "<td class=\"stock-table__cell\">{$status}</td>";
                     echo "<td class=\"stock-table__cell\">{$gross}</td>";
                     echo "<td class=\"stock-table__cell\">{$net}</td>";
-                    echo "<td class=\"stock-table__cell\">{$lastUpdated}</td>";
+                    echo "<td class=\"stock-table__cell\">{$bestBeforeDate}</td>";
                     echo '</tr>';
                 }
 

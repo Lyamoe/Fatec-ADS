@@ -63,20 +63,20 @@ $metaDescription = "GeloGest é a plataforma completa para controle de estoque, 
 
             <div class="options__buttons" aria-label="Ações Rápidas de Estoque">
                 <?php if ($isOwnerOrAdmin): ?>
-                    <a class="options__button" href="pages/dashboard.php">
+                    <a class="options__button options__button--disabled" href="pages/dashboard.php">
                         <span>Dashboard</span>
                         <span class="options__desc">Análise de desempenho da empresa</span>
                     </a>
-                    <a class="options__button" href="pages/gerenciar-usuarios.php">
+                    <a class="options__button options__button--disabled" href="pages/gerenciar-usuarios.php">
                         <span>Gerenciar usuários</span>
                         <span class="options__desc">Adicionar, editar e remover usuários</span>
                     </a>
                 <?php else: ?>
-                    <a class="options__button" href="pages/novo-estoque.php">
+                    <a class="options__button options__button--disabled" href="pages/novo-estoque.php">
                         <span>Novo estoque</span>
                         <span class="options__desc">Chegada de produtos ao estoque</span>
                     </a>
-                    <a class="options__button" href="pages/estoque-diario.php">
+                    <a class="options__button options__button--disabled" href="pages/estoque-diario.php">
                         <span>Estoque diário</span>
                         <span class="options__desc">Atualização diária das quantidades</span>
                     </a>
