@@ -242,6 +242,17 @@ h6 {
   text-decoration: underline;
 }
 
+.hero {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background: #2a7b9b;
+  background: linear-gradient(90deg, rgb(149, 196, 214) 0%, rgb(150, 228, 182) 50%, rgb(252, 246, 194) 100%);
+}
+
 .main {
   flex: 1 0 auto;
 }
@@ -275,8 +286,8 @@ span,
 a,
 input,
 select {
+  font-family: "IBM Plex Sans Condensed", sans-serif;
   font-size: 1rem;
-  margin-bottom: 1rem;
 }
 
 button {
@@ -292,14 +303,6 @@ button {
 button:hover {
   background-color: #1b3814;
   color: #c1ebb7;
-}
-
-.page-body {
-  background-color: #ecf0ec;
-  color: #333333;
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
 }
 
 .alert {
@@ -324,6 +327,7 @@ button:hover {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1.5rem;
+  width: 100%;
 }
 .stock-update__header {
   margin-bottom: 2rem;
@@ -331,7 +335,6 @@ button:hover {
 }
 .stock-update__title {
   font-size: 2rem;
-  color: #c1ebb7;
   margin: 0;
   letter-spacing: 0.5px;
 }
@@ -345,7 +348,7 @@ button:hover {
 .stock-update__actions {
   margin-top: 2rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .stock-update__button {
   background-color: #c1ebb7;
@@ -367,9 +370,11 @@ button:hover {
 }
 
 .stock-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
   gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .stock-card {
@@ -380,6 +385,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 .stock-card__flavor {
   font-size: 1.35rem;

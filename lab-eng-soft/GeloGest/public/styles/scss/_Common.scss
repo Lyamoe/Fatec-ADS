@@ -39,6 +39,23 @@
 	}
 }
 
+.hero {
+	height: 30vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+	background: #2a7b9b;
+	background: linear-gradient(
+		90deg,
+		rgb(149, 196, 214) 0%,
+		rgb(150, 228, 182) 50%,
+		rgb(252, 246, 194) 100%
+	);
+}
+
+
 .main {
 	flex: 1 0 auto;
 }
@@ -72,8 +89,8 @@ span,
 a,
 input,
 select {
+	font-family: v.$main-font-family;
 	font-size: 1rem;
-	margin-bottom: 1rem;
 }
 
 button {

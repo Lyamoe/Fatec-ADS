@@ -32,6 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_stock'])) {
                     continue;
                 }
 
+                // If marked as finished or discarded, force weights to 0
+                if (in_array($newStatus, ['finished', 'discarded'], true)) {
+                    $newGrossWeight = 0;
+                    $newNetWeight = 0;
+                }
+
                 // Fetch item current state and tare weight
                 $queryFetch = "SELECT s.status, s.current_gross_weight_grams, c.tare_weight_grams 
                                 FROM stock_items s 
@@ -46,8 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_stock'])) {
                     $prevStatus = $row['status'];
                     $tareWeight = (int) $row['tare_weight_grams'];
 
-                    // Calculate net weight (clamp at 0 if negative)
-                    $newNetWeight = max(0, $newGrossWeight - $tareWeight);
+                    // Calculate net weight if item is still active (in_stock or display)
+                    if (!in_array($newStatus, ['finished', 'discarded'], true)) {
+                        $newNetWeight = max(0, $newGrossWeight - $tareWeight);
+                    }
 
                     // 1. Insert entry into daily_stock_logs
                     $queryLog = "INSERT INTO daily_stock_logs (stock_item_id, user_id, log_date, previous_status, new_status, gross_weight_grams, net_weight_grams) 
@@ -57,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_stock'])) {
                     $stmtLog->execute();
                     $stmtLog->close();
 
-                    // Update stock_items if remaining in_stock or display
+                    // 2. Update stock_items
                     $queryUpdate = "UPDATE stock_items 
                                         SET status = ?, current_gross_weight_grams = ?, current_net_weight_grams = ? 
                                         WHERE id = ? AND company_id = ?";
@@ -127,75 +135,115 @@ $metaDescription = "Altere o estoque diário de produtos, incluindo sabores, rec
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/styles/css/stock-update.css" />
 </head>
 
-<body class="page-body">
+<body class="body">
     <?php require_once BASE_PATH . 'public/pages/includes/header.php'; ?>
 
-    <main class="main stock-update">
-        <header class="stock-update__header">
-            <h2 class="stock-update__title">Atualização Diária do Estoque</h2>
-        </header>
-
-        <?php if (!empty($message)): ?>
-            <div class="alert alert--<?= htmlspecialchars($messageType, ENT_QUOTES, 'UTF-8') ?>" role="alert">
-                <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if (empty($stockItems)): ?>
-            <p class="stock-update__empty-message">Nenhum item encontrado no estoque.</p>
-        <?php else: ?>
-            <form method="POST" action="" class="stock-update__form">
-                <div class="stock-grid">
-                    <?php foreach ($stockItems as $item): ?>
-                        <article class="stock-card">
-                            <h3 class="stock-card__flavor">
-                                <?= htmlspecialchars($item['flavor_name'], ENT_QUOTES, 'UTF-8') ?>
-                            </h3>
-
-                            <p class="stock-card__detail">
-                                Recipiente:
-                                <span
-                                    class="stock-card__value"><?= htmlspecialchars($item['container_name'], ENT_QUOTES, 'UTF-8') ?></span>
-                            </p>
-
-                            <p class="stock-card__detail">
-                                Peso Bruto Atual:
-                                <strong class="stock-card__value"><?= (int) $item['current_gross_weight_grams'] ?>g</strong>
-                            </p>
-
-                            <div class="stock-card__field">
-                                <label for="status_<?= $item['id'] ?>" class="stock-card__label">Status:</label>
-                                <select name="items[<?= $item['id'] ?>][status]" id="status_<?= $item['id'] ?>"
-                                    class="stock-card__select">
-                                    <option value="in_stock" <?= $item['status'] === 'in_stock' ? 'selected' : '' ?>>Em Estoque
-                                        (in_stock)</option>
-                                    <option value="display" <?= $item['status'] === 'display' ? 'selected' : '' ?>>Na Cuba/Vitrine
-                                        (display)</option>
-                                    <option value="finished" <?= $item['status'] === 'finished' ? 'selected' : '' ?>>Finalizado
-                                        (finished)</option>
-                                    <option value="discarded" <?= $item['status'] === 'discarded' ? 'selected' : '' ?>>Descartado
-                                        (discarded)</option>
-                                </select>
-                            </div>
-
-                            <div class="stock-card__field">
-                                <label for="weight_<?= $item['id'] ?>" class="stock-card__label">Novo Peso Bruto (g):</label>
-                                <input type="number" name="items[<?= $item['id'] ?>][gross_weight]"
-                                    id="weight_<?= $item['id'] ?>" class="stock-card__input"
-                                    value="<?= (int) $item['current_gross_weight_grams'] ?>" min="0" required />
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+    <main class="main">
+        <div class="hero">
+            <h2 class="hero__title">Atualização Diária do Estoque</h2>
+            <p class="hero__desc">Faça mudanças no status e quantidade dos itens para coincidir com o estoque real.</p>
+        </div>
+        <div class="stock-update">
+            <?php if (!empty($message)): ?>
+                <div class="alert alert--<?= htmlspecialchars($messageType, ENT_QUOTES, 'UTF-8') ?>" role="alert">
+                    <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
                 </div>
+            <?php endif; ?>
 
-                <div class="stock-update__actions">
-                    <button type="submit" name="update_stock" class="stock-update__button">Salvar Atualizações</button>
-                </div>
-            </form>
-        <?php endif; ?>
+            <?php if (empty($stockItems)): ?>
+                <p class="stock-update__empty-message">Nenhum item encontrado no estoque.</p>
+            <?php else: ?>
+                <form method="POST" action="" class="stock-update__form">
+                    <div class="stock-grid">
+                        <?php foreach ($stockItems as $item): ?>
+                            <article class="stock-card">
+                                <h3 class="stock-card__flavor">
+                                    <?= htmlspecialchars($item['flavor_name'], ENT_QUOTES, 'UTF-8') ?>
+                                </h3>
+
+                                <p class="stock-card__detail">
+                                    Recipiente:
+                                    <span
+                                        class="stock-card__value"><?= htmlspecialchars($item['container_name'], ENT_QUOTES, 'UTF-8') ?></span>
+                                </p>
+
+                                <p class="stock-card__detail">
+                                    Peso Bruto Atual:
+                                    <strong class="stock-card__value"><?= (int) $item['current_gross_weight_grams'] ?>g</strong>
+                                </p>
+
+                                <div class="stock-card__field">
+                                    <label for="status_<?= $item['id'] ?>" class="stock-card__label">Status:</label>
+                                    <select name="items[<?= $item['id'] ?>][status]" id="status_<?= $item['id'] ?>"
+                                        class="stock-card__select js-status-select" data-weight-id="weight_<?= $item['id'] ?>">
+                                        <option value="in_stock" <?= $item['status'] === 'in_stock' ? 'selected' : '' ?>>Em Estoque
+                                        </option>
+                                        <option value="display" <?= $item['status'] === 'display' ? 'selected' : '' ?>>Vitrine
+                                        </option>
+                                        <option value="finished" <?= $item['status'] === 'finished' ? 'selected' : '' ?>>Finalizado
+                                        </option>
+                                        <option value="discarded" <?= $item['status'] === 'discarded' ? 'selected' : '' ?>>
+                                            Descartado
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="stock-card__field">
+                                    <label for="weight_<?= $item['id'] ?>" class="stock-card__label">Novo Peso Bruto
+                                        (g):</label>
+                                    <input type="number" name="items[<?= $item['id'] ?>][gross_weight]"
+                                        id="weight_<?= $item['id'] ?>" class="stock-card__input js-weight-input"
+                                        data-original-value="<?= (int) $item['current_gross_weight_grams'] ?>"
+                                        value="<?= (int) $item['current_gross_weight_grams'] ?>" min="0" required />
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="stock-update__actions">
+                        <button type="submit" name="update_stock" class="stock-update__button">Salvar Atualizações</button>
+                    </div>
+                </form>
+            <?php endif; ?>
+        </div>
     </main>
 
     <?php require_once BASE_PATH . 'public/pages/includes/footer.php'; ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusSelects = document.querySelectorAll('.js-status-select');
+
+            function toggleWeightInput(selectEl) {
+                const weightInputId = selectEl.getAttribute('data-weight-id');
+                const weightInput = document.getElementById(weightInputId);
+
+                if (!weightInput) return;
+
+                if (selectEl.value === 'finished' || selectEl.value === 'discarded') {
+                    weightInput.value = 0;
+                    weightInput.readOnly = true;
+                    weightInput.style.backgroundColor = '#e5e7eb';
+                    weightInput.style.cursor = 'not-allowed';
+                } else {
+                    weightInput.readOnly = false;
+                    weightInput.style.backgroundColor = '';
+                    weightInput.style.cursor = '';
+                    if (weightInput.value === '0') {
+                        weightInput.value = weightInput.getAttribute('data-original-value') || 0;
+                    }
+                }
+            }
+
+            statusSelects.forEach(selectEl => {
+                // Initialize state on page load
+                toggleWeightInput(selectEl);
+
+                // Handle status changes
+                selectEl.addEventListener('change', () => toggleWeightInput(selectEl));
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -20,18 +20,7 @@ $shadow-card:
 	0 2px 4px -1px rgba(0, 0, 0, 0.03);
 
 // ==========================================
-// Global Body Setup
-// ==========================================
-.page-body {
-	background-color: v.$background-color;
-	color: v.$text-color;
-	margin: 0;
-	padding: 0;
-	line-height: 1.5;
-}
-
-// ==========================================
-// Alert Block Component (BEM)
+// Alert Block Component
 // ==========================================
 .alert {
 	padding: 1rem 1.25rem;
@@ -54,12 +43,13 @@ $shadow-card:
 }
 
 // ==========================================
-// Stock Update Main Block (BEM)
+// Stock Update Main Block
 // ==========================================
 .stock-update {
 	max-width: 1200px;
-	margin: 2rem auto;
-	padding: 0 1.5rem;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
 
 	&__header {
 		margin-bottom: 2rem;
@@ -68,7 +58,6 @@ $shadow-card:
 
 	&__title {
 		font-size: 2rem;
-		color: v.$primary-color-light;
 		margin: 0;
 		letter-spacing: 0.5px;
 	}
@@ -84,7 +73,7 @@ $shadow-card:
 	&__actions {
 		margin-top: 2rem;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: center;
 	}
 
 	&__button {
@@ -110,25 +99,29 @@ $shadow-card:
 }
 
 // ==========================================
-// Stock Grid Block (BEM)
+// Stock Grid Block
 // ==========================================
 .stock-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap: 1.5rem;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 // ==========================================
-// Stock Card Block Component (BEM)
+// Stock Card Block Component
 // ==========================================
 .stock-card {
 	background-color: v.$bg-color-card;
-	border-radius: $radius-md;
-	box-shadow: $shadow-card;
-	padding: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
 
 	&__flavor {
 		font-size: 1.35rem;
